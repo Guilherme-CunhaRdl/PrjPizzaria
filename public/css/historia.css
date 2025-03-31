@@ -1,0 +1,277 @@
+/* ===== HISTÓRIA - ESTILO PIZZANIGHT ===== */
+:root {
+    --roxo-escuro: #1d052e;
+    --roxo-claro: #d81df1;
+    --amarelo: #f1b81d;
+    --preto: #0a0412;
+}
+
+body.historia-page {
+    background: var(--preto);
+    font-family: 'Exo 2', sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
+
+
+
+/* ===== TEMA FNAF 3 ===== */
+body.fnaf3-theme.historia-page {
+    background: #0c0c0c !important;
+}
+
+body.fnaf3-theme .historia-header h1 {
+    background: linear-gradient(to right, #4a724a, #6b3434) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    text-shadow: 0 0 20px rgba(74, 114, 74, 0.5) !important;
+}
+
+body.fnaf3-theme .timeline::before {
+    background: linear-gradient(to bottom, #6b3434, #4a724a) !important;
+}
+
+body.fnaf3-theme .timeline-item {
+    background: rgba(12, 12, 12, 0.7) !important;
+    border-color: #4a724a !important;
+    box-shadow: 0 5px 15px rgba(74, 114, 74, 0.3) !important;
+}
+
+body.fnaf3-theme .timeline-item:hover {
+    box-shadow: 0 10px 25px rgba(74, 114, 74, 0.5) !important;
+    border-color: #8a7d3b !important;
+}
+
+body.fnaf3-theme .timeline-item::before {
+    background: #8a7d3b !important;
+    border-color: #6b3434 !important;
+}
+
+body.fnaf3-theme .timeline-year {
+    color: #8a7d3b !important;
+}
+
+body.fnaf3-theme .animatronic-card {
+    background: rgba(34, 34, 34, 0.7) !important;
+    border-color: #6b3434 !important;
+}
+
+body.fnaf3-theme .animatronic-card:hover {
+    box-shadow: 0 0 20px rgba(74, 114, 74, 0.5) !important;
+}
+
+body.fnaf3-theme .btn-voltar {
+    background: linear-gradient(45deg, #6b3434, #8a7d3b) !important;
+    color: #0c0c0c !important;
+}
+
+body.fnaf3-theme .btn-voltar:hover {
+    box-shadow: 0 5px 15px rgba(74, 114, 74, 0.5) !important;
+}
+
+/* Estilo do Jumpscare */
+.springtrap-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000de;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.springtrap-overlay img {
+    max-height: 90vh;
+    max-width: 90vw;
+    opacity: 0.8;
+}
+
+/* Botão de Tema */
+.theme-toggle {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 999;
+}
+
+#themeButton {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #5a8a6b;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+}
+
+#themeButton:hover {
+    background-color: #8a3a3a;
+    transform: scale(1.1);
+}
+
+/* Container Principal */
+.historia-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    position: relative;
+}
+
+/* Cabeçalho */
+.historia-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.historia-header h1 {
+    font-size: 3rem;
+    background: linear-gradient(to right, var(--amarelo), var(--roxo-claro));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(216, 29, 241, 0.5);
+}
+
+/* Linha do Tempo */
+.timeline {
+    position: relative;
+    padding-left: 50px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--roxo-claro), var(--amarelo));
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+    background: rgba(29, 5, 46, 0.7);
+    border: 1px solid var(--roxo-claro);
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(216, 29, 241, 0.3);
+    transition: all 0.3s;
+}
+
+.timeline-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(216, 29, 241, 0.5);
+    border-color: var(--amarelo);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -40px;
+    top: 30px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--amarelo);
+    border: 3px solid var(--roxo-claro);
+}
+
+.timeline-year {
+    color: var(--amarelo);
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+/* Animatrônicos */
+.animatronics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.animatronic-card {
+    background: rgba(69, 21, 107, 0.5);
+    border: 1px solid var(--roxo-claro);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.animatronic-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(216, 29, 241, 0.5);
+}
+
+.animatronic-card img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 10px rgba(241, 184, 29, 0.5));
+}
+
+/* Botão Voltar */
+.btn-voltar {
+    display: inline-block;
+    margin-top: 50px;
+    padding: 12px 30px;
+    background: linear-gradient(45deg, var(--roxo-claro), var(--amarelo));
+    color: var(--preto);
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+
+.btn-voltar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(216, 29, 241, 0.5);
+}
+
+/* Efeitos Especiais */
+.glitch-effect {
+    animation: glitch 2s infinite alternate;
+}
+
+@keyframes glitch {
+    0% { text-shadow: 0 0 var(--roxo-claro); }
+    25% { text-shadow: -2px 0 var(--amarelo), 2px 0 var(--roxo-claro); }
+    50% { text-shadow: 3px 0 var(--amarelo), -3px 0 var(--roxo-claro); }
+    100% { text-shadow: 0 0 var(--roxo-claro); }
+}
+
+.neon-border {
+    position: relative;
+}
+
+.neon-border::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 2px solid var(--roxo-claro);
+    border-radius: 15px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.neon-border:hover::after {
+    opacity: 1;
+}

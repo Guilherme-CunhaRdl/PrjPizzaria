@@ -1,0 +1,354 @@
+body {
+    background: linear-gradient(to top, rgba(29, 5, 46, 1), rgba(29, 5, 46, 0.75)), 
+                url(../img/fundoDiv1.png);
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: normal;
+    min-height: 100vh;
+}
+/*TEma do FNAF 3*/
+.springtrap-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000de;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.springtrap-overlay img {
+    max-height: 90vh;
+    max-width: 90vw;
+    opacity: 0.8;
+}
+
+
+/* ===== TEMA FNAF 3 ===== */
+body.fnaf3-theme {
+    background: linear-gradient(to top, #0c0c0c, #121212) !important;
+}
+
+body.fnaf3-theme .bannerInicio {
+    background: linear-gradient(rgba(12, 12, 12, 0.7), rgba(12, 12, 12, 0.7)), 
+                url('../img/banner-cardapio.jpg') center/cover no-repeat !important;
+}
+
+body.fnaf3-theme .bannerInicio::before {
+    background: radial-gradient(circle, transparent 60%, rgba(74, 114, 74, 0.1) 100%) !important;
+}
+
+body.fnaf3-theme .titulo-destaque {
+    color: #4a724a !important;
+    text-shadow: 0 0 10px rgba(74, 114, 74, 0.7),
+                 0 0 20px rgba(74, 114, 74, 0.5) !important;
+}
+
+body.fnaf3-theme .risco-left, 
+body.fnaf3-theme .risco-right {
+    background: linear-gradient(90deg, transparent, #4a724a, transparent) !important;
+}
+
+body.fnaf3-theme .icone-pizza {
+    color: #4a724a !important;
+}
+
+body.fnaf3-theme .topoCardapio input,
+body.fnaf3-theme .topoCardapio select {
+    background-color: rgba(12, 12, 12, 0.7) !important;
+    border-color: #4a724a !important;
+    box-shadow: 0 0 15px rgba(74, 114, 74, 0.2) !important;
+    color: #e8e8e8 !important;
+}
+
+body.fnaf3-theme .topoCardapio select {
+    color: #4a724a !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234a724a' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") !important;
+}
+
+body.fnaf3-theme .topoCardapio select option {
+    background-color: rgba(12, 12, 12, 0.9) !important;
+}
+
+body.fnaf3-theme .NossoCardapio {
+    background-color: #0c0c0c !important;
+}
+
+body.fnaf3-theme .CardBase {
+    background: radial-gradient(circle, rgba(74, 114, 74, 0.8) 0%, rgba(58, 90, 58, 0.9) 68%) !important;
+}
+
+body.fnaf3-theme .baixoCard h1 {
+    color: #3a5a3a !important;
+}
+
+body.fnaf3-theme .btn-pedir {
+    background-color: #8a7d3b !important;
+    color: #0c0c0c !important;
+}
+
+body.fnaf3-theme .btn-pedir:hover {
+    background-color: #6b3434 !important;
+    color: white !important;
+}
+
+/*Bagulho normal*/
+.bannerInicio {
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(29, 5, 46, 0.7), rgba(29, 5, 46, 0.7)), 
+                url('../img/banner-cardapio.jpg') center/cover no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+
+.bannerInicio::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 60%, rgba(216, 29, 241, 0.1) 100%);
+}
+
+.titulo-container {
+    text-align: center;
+    z-index: 2;
+}
+
+.titulo-destaque {
+    color: #f1b81d;
+    font-size: 4.5em;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(241, 184, 29, 0.7),
+                 0 0 20px rgba(241, 184, 29, 0.5);
+    animation: pulsar 2s infinite alternate;
+}
+
+.decoracao-horror {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.risco-left, .risco-right {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #f1b81d, transparent);
+    margin: 0 15px;
+}
+
+.icone-pizza {
+    font-size: 1.8em;
+    color: #f1b81d;
+    animation: flutuar 3s ease-in-out infinite;
+}
+
+.subtitulo {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2em;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes pulsar {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+@keyframes flutuar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+
+.topoCardapio {
+    padding: 50px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 99.4%;
+    gap: 20px; 
+}
+
+.topoCardapio input {
+    width: 340px;
+    height: 50px;
+    background-color: rgba(29, 5, 46, 0.7);
+    border: 2px solid #f1b81d;
+    border-radius: 25px; 
+    padding: 0 20px;
+    font-size: 16px;
+    color: white;
+    transition: all 0.3s;
+    box-shadow: 0 0 15px rgba(241, 184, 29, 0.2);
+}
+
+ 
+
+.topoCardapio input:focus {
+    outline: none;
+    border-color: #f1b81d;
+    box-shadow: 0 0 20px rgba(241, 184, 29, 0.4);
+    transform: scale(1.02);
+}
+
+.topoCardapio select {
+    width: 340px;
+    height: 50px;
+    background-color: rgba(29, 5, 46, 0.7);
+    border: 2px solid #f1b81d;
+    border-radius: 25px;
+    font-size: 16px;
+    padding: 0 20px;
+    color: #f1b81d;
+    appearance: none;
+    transition: all 0.3s;
+    box-shadow: 0 0 15px rgba(241, 184, 29, 0.2);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23f1b81d' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 12px;
+}
+
+.topoCardapio select:focus {
+    outline: none;
+    border-color: #f1b81d;
+    box-shadow: 0 0 20px rgba(241, 184, 29, 0.4);
+    transform: scale(1.02);
+}
+
+.topoCardapio select option {
+    background-color: rgba(29, 5, 46, 0.9);
+    color: #fff;
+}
+.NossoCardapio {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    padding: 0 100px;
+    background-color: rgba(29, 5, 46, 1);
+    min-height: calc(100vh - 40vh - 80px);
+}
+
+.conteudoCardapio {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
+.CardBase {
+    width: 280px;
+    height: auto;
+    background: radial-gradient(circle, rgba(243,157,255,1) 0%, rgba(185,67,201,1) 68%);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.CardBase:hover {
+    transform: translateY(-5px);
+}
+
+.baixoCard {
+    width: 100%;
+    height: 50%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+.baixoCard h1 {
+    color: #b943c9;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 1.5em;
+}
+
+.ingredientes {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    text-align: center;
+    min-height: 40px;
+}
+
+.btn-pedir {
+    background-color: #f1b81d;
+    color: #1d052e;
+    border: none;
+    padding: 8px 20px;
+    font-size: 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.btn-pedir:hover {
+    background-color: #d81df1;
+    color: white;
+}
+
+.topoCard {
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.topoCard img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.detalhes-pizza {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+.preco {
+    background-color: rgba(29, 5, 46, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.tamanho {
+    background-color: #f1b81d;
+    color: #1d052e;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+}

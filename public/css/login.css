@@ -1,0 +1,136 @@
+/* Tela de Login */
+.login {
+    background: linear-gradient(to top, rgba(29, 5, 46, 1), rgba(29, 5, 46, 0.85)), 
+    url('/images/fundoDiv1.png');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: normal;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.login .container {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: rgba(44, 12, 68, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login .formulario-login {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login h2 {
+    font-size: 2.5em;
+    color: #d81df1;
+    margin-bottom: 10px;
+}
+
+.login p {
+    font-size: 1.2em;
+    color: #ccc;
+    margin-bottom: 30px;
+}
+
+.login .input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login .input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: 2px solid #720181;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.login .input-group input::placeholder {
+    color: #aaa;
+}
+
+.login .input-group input:focus {
+    border-color: #d81df1;
+    background-color: rgba(255, 255, 255, 0.2);
+    outline: none;
+}
+
+.login .botao-login {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2em;
+    font-weight: 600;
+    background-color: #d81df1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+.login .botao-login:hover {
+    background-color: #bb16d1;
+    transform: scale(1.02);
+}
+
+.login .cadastro-link {
+    font-size: 1em;
+    color: #ccc;
+    margin-top: 20px;
+}
+
+.login .cadastro-link a {
+    color: #d81df1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.login .cadastro-link a:hover {
+    color: #bb16d1;
+}
+
+/* Responsividade para Telas Pequenas */
+@media (max-width: 767px) {
+    .login .container {
+        padding: 20px;
+    }
+
+    .login h2 {
+        font-size: 2em;
+    }
+
+    .login p {
+        font-size: 1em;
+    }
+
+    .login .input-group input {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .login .botao-login {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    .login .cadastro-link {
+        font-size: 0.9em;
+    }
+}

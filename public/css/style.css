@@ -1,0 +1,744 @@
+/* Reset e Variáveis */
+:root {
+    --roxo-escuro: #1d052e;
+    --roxo-claro: #d81df1;
+    --amarelo: #f1b81d;
+    --cinza-claro: #f5f5f5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Exo 2', sans-serif;
+    color: #fff;
+    background-color: var(--roxo-escuro);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+
+
+
+.theme-toggle {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 999;
+}
+
+#themeButton {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #5a8a6b; /* Verde FNAF 3 */
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+}
+
+#themeButton:hover {
+    background-color: #8a3a3a; /* Vermelho FNAF 3 */
+    transform: scale(1.1);
+}
+
+/* Overlay do Springtrap */
+.springtrap-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000de;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.springtrap-overlay img {
+    max-height: 90vh;
+    max-width: 90vw;
+    opacity: 0.8;
+}
+
+
+
+/* ===== TEMA FNAF 3 ===== */
+body.fnaf3-theme {
+    /* CORES PRINCIPAIS (FNAF 3) - Versão consolidada */
+    --bg-primary: #0c0c0c;        /* Fundo principal */
+    --bg-secondary: #121212;      /* Fundo secundário */
+    --bg-darker: #0a0a0a;         /* Preto mais intenso */
+    
+    --accent-green: #4a724a;      /* Verde Phantom */
+    --accent-red: #6b3434;        /* Vermelho Springtrap */
+    --accent-yellow: #b59b4a;     /* Amarelo dourado */
+    
+    --text-main: #e8e8e8;         /* Texto principal */
+    --text-secondary: #aaaaaa;    /* Texto secundário */
+    
+    /* Substituições de cores do tema padrão */
+    --roxo-escuro: var(--bg-primary);
+    --roxo-claro: var(--accent-red);
+    --amarelo: var(--accent-yellow);
+    --cinza-claro: var(--text-secondary);
+
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+}
+
+
+
+/* ===== FUNDO DAS SECTIONS (MESMA COR) ===== */
+body.fnaf3-theme .compre-agora {
+    background: var(--bg-secondary) !important;
+}
+
+
+
+body.fnaf3-theme .sobre-nos {
+    background: var(--bg-primary) !important;
+}
+
+/* Overlay mais escuro para dar profundidade */
+body.fnaf3-theme .compre-agora::before,
+body.fnaf3-theme .sobre-nos::before {
+    background: radial-gradient(
+        circle at 50% 50%,
+        transparent 0%,
+        rgba(0, 0, 0, 0.7) 100%
+    );
+}
+
+
+/* ===== HEADER ===== */
+body.fnaf3-theme header {
+    background: var(--bg-secondary);
+ 
+}
+
+body.fnaf3-theme .logo p {
+    background: linear-gradient(to right, var(--accent-yellow), var(--accent-red));
+    -webkit-background-clip: text;
+}
+
+/* ===== TÍTULOS ===== */
+body.fnaf3-theme .hero-content h2,
+body.fnaf3-theme .text-content h2 {
+    color: var(--accent-green);
+    text-shadow: 0 0 8px rgba(74, 114, 74, 0.4);
+}
+
+body.fnaf3-theme .text-content h2 span {
+    color: var(--accent-yellow);
+}
+
+/* ===== BOTÕES ===== */
+body.fnaf3-theme .botao {
+    background-color: var(--accent-red);
+    color: var(--text-main);
+}
+
+body.fnaf3-theme .botao:hover {
+    background-color: var(--accent-green);
+}
+
+/* ===== ANIMATRÔNICOS ===== */
+body.fnaf3-theme .animatronic,
+body.fnaf3-theme .hero-image {
+    filter: sepia(0.4) hue-rotate(-10deg) brightness(0.9);
+    border: none !important;
+}
+
+ 
+
+/* Ajuste o glow-effect para o tema FNAF 3 */
+body.fnaf3-theme .glow-effect {
+    background: radial-gradient(
+        circle,
+        rgba(74, 114, 74, 0.2) 0%,
+        transparent 70%
+    ) !important;
+    opacity: 0.7; /* Reduza a opacidade para um efeito mais sutil */
+}
+
+/* Para o tema padrão (roxo) */
+.glow-effect {
+    background: radial-gradient(
+        circle,
+        rgba(216, 29, 241, 0.2) 0%,  /* Roxo claro com transparência */
+        transparent 70%
+    ) !important;
+    opacity: 0.7;
+}
+
+/* Remova qualquer filtro extra que possa estar afetando a cor */
+body:not(.fnaf3-theme) .animatronic,
+body:not(.fnaf3-theme) .hero-image {
+    filter: none !important;
+}
+
+/* ========== RODAPÉ (SEM ROXO) ========== */
+body.fnaf3-theme .rodape {
+    background: linear-gradient(to top, var(--bg-primary), var(--bg-darker));
+}
+
+body.fnaf3-theme .rodape::before {
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--accent-red),
+        var(--accent-yellow),
+        var(--accent-red),
+        transparent
+    );
+}
+
+body.fnaf3-theme .texto-rodape {
+    color: var(--text-primary);
+}
+
+/* Efeitos */
+@keyframes fnaf3-glitch {
+    0% { 
+        text-shadow: 0 0 var(--accent-green); /* Verde fosforescente */
+    }
+    25% { 
+        text-shadow: 
+            -2px 0 var(--accent-yellow),   /* Amarelo esverdeado */
+            2px 0 var(--accent-red);       /* Vermelho envelhecido */
+    }
+    50% { 
+        text-shadow: 
+            3px 0 var(--accent-yellow),    /* Amarelo metálico */
+            -3px 0 var(--accent-green);    /* Verde mais intenso */
+    }
+    100% { 
+        text-shadow: 0 0 var(--accent-red); /* Vermelho pulsante */
+    }
+}
+
+
+/* Aplica o glitch no título principal */
+body.fnaf3-theme .hero-content h2 {
+    animation: fnaf3-glitch 2s infinite alternate;
+}
+
+
+/* Header */
+header {
+    width: 100%;
+    padding: 15px 4%;
+    background: var(--roxo-escuro);
+    box-shadow: 0 2px 20px rgba(216, 29, 241, 0.3);
+    position: relative;
+    z-index: 1000;
+}
+
+.interface {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo i {
+    font-size: 1.8rem;
+    color: var(--amarelo);
+}
+
+.logo p {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    background: linear-gradient(to right, #f1b81d, #d81df1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Menu */
+.menu-desktop ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    margin: 0 30px;
+}
+
+.menu-desktop a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+    position: relative;
+    padding: 5px 0;
+}
+
+.menu-desktop a:hover {
+    color: var(--roxo-claro);
+}
+
+.menu-desktop a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--amarelo);
+    transition: width 0.3s;
+}
+
+.menu-desktop a:hover::after {
+    width: 100%;
+}
+
+/* Botão Contato */
+.btn-contato button {
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: transparent;
+    border: 1px solid var(--roxo-claro);
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-contato button:hover {
+    background-color: var(--roxo-claro);
+    transform: translateY(-2px);
+}
+
+/* Seção */
+.compre-agora {
+    margin-top: 0;
+    height: 100vh;
+    background: linear-gradient(to top, var(--roxo-escuro), rgba(29, 5, 46, 0.75)), 
+                url('img/fundoDiv1.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.compre-agora::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at 70% 20%,
+        transparent 0%,
+        rgba(29, 5, 46, 0.9) 70%
+    );
+    z-index: 1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero-content h2 {
+    font-size: 3.0rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(216, 29, 241, 0.7);
+    animation: glitch 2s infinite alternate;
+}
+
+@keyframes glitch {
+    0% { text-shadow: 0 0 var(--roxo-claro); }
+    25% { text-shadow: -2px 0 var(--amarelo), 2px 0 var(--roxo-claro); }
+    50% { text-shadow: 3px 0 var(--amarelo), -3px 0 var(--roxo-claro); }
+    100% { text-shadow: 0 0 var(--roxo-claro); }
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--cinza-claro);
+    margin-bottom: 30px;
+}
+
+.botao {
+    display: inline-block;
+    background-color: var(--roxo-claro);
+    color: #fff;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+
+}
+
+.botao:hover {
+    background-color: var(--amarelo);
+    color: var(--roxo-escuro);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(216, 29, 241, 0.3);
+}
+
+.botao::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(241, 184, 29, 0.4), transparent);
+    transition: 0.5s;
+}
+
+.botao:hover::before {
+    left: 100%;
+}
+
+.hero-image {
+    width: 500px;
+    animation: aparecerDaDireita 1.5s ease-out forwards;
+}
+
+@keyframes aparecerDaDireita {
+    0% { transform: translateX(100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Seção Sobre Nós */
+.sobre-nos {
+    padding: 100px 0;
+    background: linear-gradient(to top, rgba(29, 5, 46, 0.85), var(--roxo-escuro)), 
+                url('img/fundoDiv2.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.text-content {
+    flex: 1;
+}
+
+.text-content h2 {
+    font-size: 2.5rem;
+    color: var(--roxo-claro);
+    margin-bottom: 15px;
+}
+
+.text-content h2 span {
+    color: var(--amarelo);
+}
+
+.destaque p {
+    font-size: 1.1rem;
+    color: var(--amarelo);
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.descricao {
+    font-size: 1.1rem;
+    color: var(--cinza-claro);
+    margin-bottom: 30px;
+}
+
+.btn-saiba-mais {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: transparent;
+    color: var(--amarelo);
+    border: 1px solid var(--amarelo);
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.btn-saiba-mais:hover {
+    background-color: var(--amarelo);
+    color: var(--roxo-escuro);
+}
+
+.image-wrapper {
+    position: relative;
+
+}
+
+.animatronic {
+    width: 500px;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
+    animation: flutuar 3s ease-in-out infinite;
+ 
+}
+
+@keyframes flutuar {
+    0%, 100% {transform: translateY(0) ; }
+    50% { transform:  translateY(-20px); }
+}
+
+.glow-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(216, 29, 241, 0.3) 0%, transparent 70%);
+    border-radius: 10px;
+    z-index: -1;
+}
+
+
+
+/* Botão Flutuante */
+.floating-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+}
+
+.floating-btn a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: var(--roxo-claro);
+    border-radius: 50%;
+    font-size: 24px;
+    box-shadow: 0 0 20px rgba(216, 29, 241, 0.7);
+    transition: all 0.3s;
+    position: relative;
+}
+
+.floating-btn a:hover {
+    transform: scale(1.1) rotate(15deg);
+    background: var(--amarelo);
+}
+
+.tooltip {
+    position: absolute;
+    right: 70px;
+    white-space: nowrap;
+    background: var(--amarelo);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    border: 1px solid var(--amarelo);
+}
+
+.floating-btn a:hover .tooltip {
+    opacity: 1;
+}
+
+/* Footer */
+.rodape {
+    background: linear-gradient(to top, var(--roxo-escuro), #2d0a4a);
+    padding: 30px 0;
+    position: relative;
+}
+
+.rodape::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--roxo-claro), var(--amarelo), var(--roxo-claro), transparent);
+}
+
+.texto-rodape {
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    position: relative;
+    color: var(--cinza-claro);
+}
+
+.texto-rodape::after {
+    content: '🍕';
+    position: absolute;
+    right: -25px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Efeitos Globais */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><circle cx="25" cy="25" r="1"/><circle cx="75" cy="50" r="1.5"/><circle cx="15" cy="80" r="0.8"/></svg>');
+    pointer-events: none;
+    z-index: -1;
+    animation: float 20s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(-100vh) translateX(100px); }
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .hero-content h2 {
+        font-size: 2.8rem;
+    }
+    
+    .animatronic {
+        width: 350px;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hero-content {
+        margin-bottom: 40px;
+    }
+    
+    .content-wrapper {
+        flex-direction: column;
+    }
+    
+    .image-wrapper {
+        margin-top: 40px;
+    }
+    
+    .sabor {
+        flex: 0 0 calc(50% - 15px);
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-desktop {
+        display: none;
+    }
+    
+    .logo p {
+        font-size: 1.3rem;
+    }
+    
+    .logo i {
+        font-size: 1.5rem;
+    }
+    
+    .btn-contato button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    
+    .hero-content h2 {
+        font-size: 2.2rem;
+    }
+    
+    .animatronic {
+        width: 280px;
+    }
+    
+    .sabor {
+        flex: 0 0 100%;
+    }
+    
+    .carrossel-sabores {
+        width: calc(100% - 60px);
+    }
+
+}
+
+@media (max-width: 576px) {
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-image {
+        width: 100%;
+    }
+    
+    .titulo-cardapio h2 {
+        font-size: 2rem;
+    }
+    
+    .chica-image {
+        width: 150px;
+    }
+    
+    .floating-btn {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .floating-btn a {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
