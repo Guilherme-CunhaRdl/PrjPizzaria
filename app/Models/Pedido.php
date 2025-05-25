@@ -11,7 +11,7 @@ class Pedido extends Model
 
     protected $table = 'pedidos';
 
-    protected $fillable = ['idUsuario', 'descPedido', 'statusPedido'];
+    protected $fillable = ['idUsuario',  'total', 'taxa_entrega', 'endereco_entrega','status', 'metodo_pagamento', 'observacoes'];
 
     public function usuario()
     {

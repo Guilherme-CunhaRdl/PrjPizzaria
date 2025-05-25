@@ -70,75 +70,15 @@
 
         <!-- Grid de Pizzas -->
         <div class="pizza-grid">
-            <!-- Pizza 1 -->
-            <div class="pizza-card destaque">
-                <div class="pizza-img" style="background-image: url('img/pizza-margherita.jpg');">
-                    <span class="badge-destaque"><i class="fas fa-star"></i> Destaque</span>
-                </div>
-                <div class="pizza-info">
-                    <div class="pizza-header">
-                        <h3>Margherita</h3>
-                        <span class="categoria salgada">Salgada</span>
-                    </div>
-                    <p class="ingredientes">Molho de tomate, mussarela fresca, manjericão</p>
-                    <div class="pizza-footer">
-                        <div class="preco-tamanhos">
-                            <span class="tamanho-preco">P: R$ 39,90</span>
-                            <span class="tamanho-preco">M: R$ 49,90</span>
-                            <span class="tamanho-preco">G: R$ 59,90</span>
-                        </div>
-                        <div class="status disponivel">Disponível</div>
-                    </div>
-                    <div class="pizza-acoes">
-                        <button class="btn-acao btn-editar" title="Editar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-acao btn-ativar" title="Desativar">
-                            <i class="fas fa-toggle-on"></i>
-                        </button>
-                        <button class="btn-acao btn-excluir" title="Excluir">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pizza 2 -->
-            <div class="pizza-card">
-            <div class="pizza-img" style="background-image: url('{{ asset('images/pizza.png') }}');">
-            <span class="badge-esgotado"><i class="fas fa-times-circle"></i> Esgotado</span>
-                </div>
-                <div class="pizza-info">
-                    <div class="pizza-header">
-                        <h3>Calabresa</h3>
-                        <span class="categoria salgada">Salgada</span>
-                    </div>
-                    <p class="ingredientes">Molho de tomate, mussarela, calabresa, cebola</p>
-                    <div class="pizza-footer">
-                        <div class="preco-tamanhos">
-                            <span class="tamanho-preco">P: R$ 45,90</span>
-                            <span class="tamanho-preco">M: R$ 54,90</span>
-                            <span class="tamanho-preco">G: R$ 61,90</span>
-                        </div>
-                        <div class="status disponivel">Disponível</div>
-                    </div>
-                    <div class="pizza-acoes">
-                        <button class="btn-acao btn-editar" title="Editar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-acao btn-ativar" title="Ativar">
-                            <i class="fas fa-toggle-off"></i>
-                        </button>
-                        <button class="btn-acao btn-excluir" title="Excluir">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-
             @foreach($pizzas as $pizza)
-            <div class="pizza-card">
+            <div class="pizza-card" data-id="{{ $pizza->id }}" 
+     data-nome="{{ $pizza->nomePizza }}"
+     data-categoria="{{ $pizza->categoriaPizza }}"
+     data-ingredientes="{{ $pizza->ingredientesPizza }}"
+     data-pequena="{{ $pizza->valorPequenaPizza }}"
+     data-media="{{ $pizza->valorMediaPizza }}"
+     data-grande="{{ $pizza->valorGrandePizza }}"
+     data-imagem="{{ asset('uploads/' . $pizza->imgPizza) }}">
             <div class="pizza-img" style="background-image: url('{{ asset("uploads/" . $pizza->imgPizza) }}');">
             <span class="badge-esgotado"><i class="fas fa-times-circle"></i> Esgotado</span>
                 </div>
@@ -171,41 +111,7 @@
             </div>
             @endforeach
 
-            <!-- Pizza 3 -->
-            <div class="pizza-card">
-                <div class="pizza-img" style="background-image: url('img/pizza-chocolate.jpg');">
-                    <span class="badge-promocao"><i class="fas fa-tag"></i> Promoção</span>
-                </div>
-                <div class="pizza-info">
-                    <div class="pizza-header">
-                        <h3>Chocolate</h3>
-                        <span class="categoria doce">Doce</span>
-                    </div>
-                    <p class="ingredientes">Chocolate ao leite, morangos, granulado</p>
-                    <div class="pizza-footer">
-                        <div class="preco">
-                            <div class="preco-tamanhos">
-                                <span class="tamanho-preco">P:  <span class="preco-antigo">R$ 39,90 </span>  R$ 34,90</span>                 
-                                <span class="tamanho-preco">M: R$ 49,90</span>
-                                <span class="tamanho-preco">G: R$ 59,90</span>
-                            </div>
-                            <div class="status disponivel">Disponível</div>
-       
-                        </div>
-                    </div>
-                    <div class="pizza-acoes">
-                        <button class="btn-acao btn-editar" title="Editar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-acao btn-ativar" title="Desativar">
-                            <i class="fas fa-toggle-on"></i>
-                        </button>
-                        <button class="btn-acao btn-excluir" title="Excluir">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
         <!-- Paginação -->
@@ -222,31 +128,29 @@
         </div>
     </main>
 
-   <!-- Modal Adicionar/Editar Pizza -->
-<div class="modal" id="modalPizza">
+   <!-- Modal Adicionar -->
+   <div class="modal" id="modalAdicionarPizza">
     <div class="modal-conteudo">
         <span class="fechar-modal">&times;</span>
-        <h2><i class="fas fa-pizza-slice"></i> <span id="modalTitulo">Adicionar Nova Pizza</span></h2>
+        <h2><i class="fas fa-pizza-slice"></i> Adicionar Nova Pizza</h2>
         
-        <form method="POST" action="{{ url('/admin/dbBosta') }}" enctype="multipart/form-data" class="form-pizza" >
+        <form method="POST" action="{{ route('pizzas.store') }}" enctype="multipart/form-data" class="form-pizza" id="formAdicionarPizza">
             @csrf
-            <input type="hidden" id="pizzaId">
-
+            
             <div class="form-group">
-                <label for="nome">Nome da Pizza</label>
-                <input type="text" id="pizzaNome" name="nomePizza" placeholder="Ex: Margherita" required>
+                <label for="adicionarNome">Nome da Pizza</label>
+                <input type="text" id="adicionarNome" name="nomePizza" placeholder="Ex: Margherita" required>
             </div>
             
             <div class="form-group">
-                <label for="categoria">Categoria</label>
-                <select name="categoriaPizza" id="pizzaCategoria">
+                <label for="adicionarCategoria">Categoria</label>
+                <select name="categoriaPizza" id="adicionarCategoria" required>
                     <option value="Salgada">Salgada</option>
                     <option value="Doce">Doce</option>
                     <option value="Especial">Especial</option>
                 </select>
             </div>
             
-            <!-- Nova seção para tamanhos e preços -->
             <div class="form-tamanhos">
                 <h4>Tamanhos e Preços</h4>
                 
@@ -254,7 +158,7 @@
                     <label>Pequena (P)</label>
                     <div class="preco-input">
                         <span>R$</span>
-                        <input name="valorPequenaPizza" type="number" id="precoPequena" step="0.01" placeholder="39.90" min="0">
+                        <input name="valorPequenaPizza" type="number" id="adicionarPrecoPequena" step="0.01" placeholder="39.90" min="0" required>
                     </div>
                 </div>
                 
@@ -262,7 +166,7 @@
                     <label>Média (M)</label>
                     <div class="preco-input">
                         <span>R$</span>
-                        <input type="number" name="valorMediaPizza" id="precoMedia" step="0.01" placeholder="49.90" min="0">
+                        <input type="number" name="valorMediaPizza" id="adicionarPrecoMedia" step="0.01" placeholder="49.90" min="0" required>
                     </div>
                 </div>
                 
@@ -270,38 +174,37 @@
                     <label>Grande (G)</label>
                     <div class="preco-input">
                         <span>R$</span>
-                        <input type="number" name="valorGrandePizza" id="precoGrande" step="0.01" placeholder="59.90" min="0">
+                        <input type="number" name="valorGrandePizza" id="adicionarPrecoGrande" step="0.01" placeholder="59.90" min="0" required>
                     </div>
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="ingredientes">Ingredientes</label>
-                <textarea name="ingredientesPizza" id="pizzaIngredientes" placeholder="Liste os ingredientes separados por vírgula"></textarea>
+                <label for="adicionarIngredientes">Ingredientes</label>
+                <textarea name="ingredientesPizza" id="adicionarIngredientes" placeholder="Liste os ingredientes separados por vírgula" required></textarea>
             </div>
             
             <div class="form-group">
-                <label for="imagem">Imagem da Pizza</label>
-                <input type="file" id="pizzaImagem" name="imgPizza" accept="image/*" required>
-                <div id="imagemPreview" class="imagem-preview"></div>
-                <input type="hidden"  id="pizzaImagemAtual">
+                <label for="adicionarImagem">Imagem da Pizza</label>
+                <input type="file" id="adicionarImagem" name="imgPizza" accept="image/*" required>
+                <div id="adicionarImagemPreview" class="imagem-preview"></div>
             </div>
             
             <div class="form-options">
                 <label class="checkbox-option">
-                    <input type="checkbox" id="pizzaDestaque">
+                    <input type="checkbox" name="destaque" id="adicionarDestaque" value="1">
                     <span class="checkmark"></span>
                     Destacar no cardápio
                 </label>
                 
                 <label class="checkbox-option">
-                    <input type="checkbox" id="pizzaPromocao">
+                    <input type="checkbox" name="promocao" id="adicionarPromocao" value="1">
                     <span class="checkmark"></span>
                     Marcar como promoção
                 </label>
                 
                 <label class="checkbox-option">
-                    <input type="checkbox" id="pizzaDisponivel" checked>
+                    <input type="checkbox" name="disponivel" id="adicionarDisponivel" value="1" checked>
                     <span class="checkmark"></span>
                     Disponível
                 </label>
@@ -309,12 +212,106 @@
             
             <div class="form-botoes">
                 <button type="button" class="btn-secundario btn-cancelar">Cancelar</button>
-                <button type="submit" class="btn-primario" id="btnSalvarPizza">Salvar Pizza</button>
+                <button type="submit" class="btn-primario">Adicionar Pizza</button>
             </div>
         </form>
     </div>
 </div>
 
+
+
+<!-- Modal de Edição -->
+<div class="modal" id="modalEditarPizza">
+    <div class="modal-conteudo">
+        <span class="fechar-modal">&times;</span>
+        <h2><i class="fas fa-pizza-slice"></i> Editar Pizza</h2>
+        
+        <form method="POST" action="{{ url('/admin/pizzas') }}" enctype="multipart/form-data" class="form-pizza" id="formEditarPizza">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="id" id="editarPizzaId">
+
+            <div class="form-group">
+                <label for="editarNome">Nome da Pizza</label>
+                <input type="text" id="editarNome" name="nomePizza" placeholder="Ex: Margherita" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="editarCategoria">Categoria</label>
+                <select name="categoriaPizza" id="editarCategoria">
+                    <option value="Salgada">Salgada</option>
+                    <option value="Doce">Doce</option>
+                    <option value="Especial">Especial</option>
+                </select>
+            </div>
+            
+            <div class="form-tamanhos">
+                <h4>Tamanhos e Preços</h4>
+                
+                <div class="tamanho-item">
+                    <label>Pequena (P)</label>
+                    <div class="preco-input">
+                        <span>R$</span>
+                        <input name="valorPequenaPizza" type="number" id="editarPrecoPequena" step="0.01" placeholder="39.90" min="0">
+                    </div>
+                </div>
+                
+                <div class="tamanho-item">
+                    <label>Média (M)</label>
+                    <div class="preco-input">
+                        <span>R$</span>
+                        <input type="number" name="valorMediaPizza" id="editarPrecoMedia" step="0.01" placeholder="49.90" min="0">
+                    </div>
+                </div>
+                
+                <div class="tamanho-item">
+                    <label>Grande (G)</label>
+                    <div class="preco-input">
+                        <span>R$</span>
+                        <input type="number" name="valorGrandePizza" id="editarPrecoGrande" step="0.01" placeholder="59.90" min="0">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="editarIngredientes">Ingredientes</label>
+                <textarea name="ingredientesPizza" id="editarIngredientes" placeholder="Liste os ingredientes separados por vírgula"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="editarImagem">Imagem da Pizza</label>
+                <input type="file" id="editarImagem" name="imgPizza" accept="image/*">
+                <div id="editarImagemPreview" class="imagem-preview"></div>
+                <input type="hidden" id="editarImagemAtual">
+            </div>
+            
+            <div class="form-options">
+                <label class="checkbox-option">
+                    <input type="checkbox" name="destaque" id="editarDestaque" value="1">
+                    <span class="checkmark"></span>
+                    Destacar no cardápio
+                </label>
+                
+                <label class="checkbox-option">
+                    <input type="checkbox" name="promocao" id="editarPromocao" value="1">
+                    <span class="checkmark"></span>
+                    Marcar como promoção
+                </label>
+                
+                <label class="checkbox-option">
+                    <input type="checkbox" name="disponivel" id="editarDisponivel" value="1">
+                    <span class="checkmark"></span>
+                    Disponível
+                </label>
+            </div>
+            
+            <div class="form-botoes">
+                <button type="button" class="btn-secundario btn-cancelar">Cancelar</button>
+                <button type="submit" class="btn-primario">Atualizar Pizza</button>
+            </div>
+        </form>
+    </div>
+</div>
     
 
     <script src="{{url('js/filtro.js')}}"></script>

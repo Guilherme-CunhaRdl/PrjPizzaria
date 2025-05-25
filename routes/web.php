@@ -6,6 +6,7 @@ use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdmLoginController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\PedidoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,13 @@ Route::post('/admin/loginAdmin', [AdmLoginController::class, 'login'])->name('lo
 Route::get('/admin/dbAdmin','App\Http\Controllers\AdminController@DashBoardP')->name('dashboardAdm');
 Route::get('/admin/dbAdminCardapio',[ProdutoController::class, 'index'])->name('cardapio.index');
 Route::get('/admin/dbAdminCliente','App\Http\Controllers\AdminController@DashBoardCLiente');
-Route::get('/admin/dbAdminPedido','App\Http\Controllers\AdminController@DashBoardPedido');
-Route::post('/admin/dbBosta',[ProdutoController::class, 'inserirPizza'])->name('inserirPizza');
+Route::get('/admin/dbAdminPedido', [PedidoController::class, 'index'])->name('admin.pedidos');
 Route::get('/admin/dbAdminCardapio/{id}', [ProdutoController::class, 'deletarPizza'])->name('deletarPizza');
+
+Route::post('/admin/pizzas', [ProdutoController::class, 'inserirPizza'])->name('pizzas.store');
+// routes/web.php
+Route::put('/admin/pizzas/{id}', [ProdutoController::class, 'update'])->name('pizzas.update');
+
+// ROTAS DO PEDIDO 
+Route::put('/admin/pedidos/{pedido}/status', [PedidoController::class, 'updateStatus'])->name('pedidos.updateStatus');
+Route::get('/pedidos/{id}/detalhes', [PedidoController::class, 'detalhes'])->name('pedidos.detalhes');

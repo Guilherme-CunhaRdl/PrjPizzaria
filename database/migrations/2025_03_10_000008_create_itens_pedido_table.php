@@ -17,11 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('idPedido')->constrained('pedidos')->onDelete('cascade');
             $table->foreignId('idPizza')->nullable()->constrained('pizzas')->onDelete('set null');
-            $table->foreignId('idBebida')->nullable()->constrained('bebidas')->onDelete('set null');
-            $table->foreignId('idSobremesa')->nullable()->constrained('sobremesas')->onDelete('set null');
-            $table->foreignId('idAcompanhamento')->nullable()->constrained('acompanhamentos')->onDelete('set null');
+            $table->string('tamanho');
             $table->integer('quantidade');
-            $table->decimal('precoTotal', 8, 2);
+            $table->decimal('preco_unitario', 10, 2);
             $table->timestamps();
         });
     }

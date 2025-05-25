@@ -22,6 +22,9 @@ class CreatePizzasTable extends Migration
             $table->text('ingredientesPizza'); // Ingredientes da pizza
             $table->string('categoriaPizza'); // Categoria da pizza
             $table->string('imgPizza')->nullable(); // Caminho da imagem da pizza (pode ser nulo)
+            $table->boolean('destaque')->default(false); // Se a pizza é destaque
+            $table->boolean('promocao')->default(false); // Se a pizza está em promoção
+            $table->boolean('disponivel')->default(true);
             $table->timestamps(); // Adiciona as colunas created_at e updated_at
         });
     }

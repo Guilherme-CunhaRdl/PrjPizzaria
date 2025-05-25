@@ -11,7 +11,7 @@ class ItemPedido extends Model
 
     protected $table = 'itens_pedido';
 
-    protected $fillable = ['idPedido', 'idPizza', 'idBebida', 'idSobremesa', 'idAcompanhamento', 'quantidade', 'precoTotal'];
+    protected $fillable = ['idPedido', 'idPizza', 'tamanho', 'quantidade', 'preco_unitario'];
 
     public function pedido()
     {
@@ -23,18 +23,5 @@ class ItemPedido extends Model
         return $this->belongsTo(Pizza::class, 'idPizza');
     }
 
-    public function bebida()
-    {
-        return $this->belongsTo(Bebida::class, 'idBebida');
-    }
 
-    public function sobremesa()
-    {
-        return $this->belongsTo(Sobremesa::class, 'idSobremesa');
-    }
-
-    public function acompanhamento()
-    {
-        return $this->belongsTo(Acompanhamento::class, 'idAcompanhamento');
-    }
 }

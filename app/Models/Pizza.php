@@ -12,7 +12,18 @@ class Pizza extends Model
 
     protected $table = 'pizzas';
 
-    protected $fillable = ['nomePizza', 'valorPizza', 'ingredientesPizza', 'categoriaPizza', 'imgPizza',];
+    protected $fillable = [
+        'nomePizza',
+        'valorPequenaPizza',
+        'valorMediaPizza', 
+        'valorGrandePizza',
+        'ingredientesPizza',
+        'categoriaPizza',
+        'imgPizza',
+        'destaque',
+        'promocao',
+        'disponivel'
+    ];
 
     public function itensPedido()
     {

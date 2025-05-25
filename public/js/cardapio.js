@@ -88,121 +88,115 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Seleciona todos os botões de edição
-    const botoesEditar = document.querySelectorAll('.btn-editar');
-    const modal = document.getElementById('modalPizza');
-    const modalTitulo = document.getElementById('modalTitulo');
-    const btnSalvarPizza = document.getElementById('btnSalvarPizza');
-    
-    // Adiciona evento de clique para cada botão de edição
-    botoesEditar.forEach(botao => {
-        botao.addEventListener('click', function() {
-            // Obtém o card da pizza que está sendo editada
-            const pizzaCard = this.closest('.pizza-card');
-            
-            // Preenche o modal com os dados da pizza
-            preencherModalEdicao(pizzaCard);
-            
-            // Altera o título do modal
-            modalTitulo.textContent = 'Editar Pizza';
-            
-            // Altera o texto do botão de salvar
-            btnSalvarPizza.textContent = 'Atualizar Pizza';
-            
-            // Exibe o modal
-            modal.style.display = 'flex';
-        });
-    });
-    
-    function preencherModalEdicao(pizzaCard) {
-        // Obtém os dados da pizza do card
-        const nome = pizzaCard.querySelector('h3').textContent;
-        const categoria = pizzaCard.querySelector('.categoria').textContent.toLowerCase();
-        const ingredientes = pizzaCard.querySelector('.ingredientes').textContent;
-        const status = pizzaCard.querySelector('.status').textContent.toLowerCase();
-        const isDestaque = pizzaCard.classList.contains('destaque');
-        const isPromocao = pizzaCard.querySelector('.badge-promocao') !== null;
-        
-        // Obter preços dos tamanhos 
-        // Aqui estou usando valores padrão
-        document.getElementById('precoPequena').value = '39.90';
-        document.getElementById('precoMedia').value = '49.90';
-        document.getElementById('precoGrande').value = '59.90';
-        
-        // Preenche os outros campos do formulário
-        document.getElementById('pizzaNome').value = nome;
-        document.getElementById('pizzaCategoria').value = categoria === 'salgada' ? 'salgada' : 
-                                                         categoria === 'doce' ? 'doce' : 'especial';
-        document.getElementById('pizzaIngredientes').value = ingredientes;
-        document.getElementById('pizzaDestaque').checked = isDestaque;
-        document.getElementById('pizzaPromocao').checked = isPromocao;
-        document.getElementById('pizzaDisponivel').checked = status === 'disponível';
-        
-        // Obtém a URL da imagem
-        const imagemUrl = pizzaCard.querySelector('.pizza-img').style.backgroundImage
-            .replace('url("', '').replace('")', '');
-        document.getElementById('pizzaImagemAtual').value = imagemUrl;
-        
-        // Exibe a pré-visualização da imagem
-        const imagemPreview = document.getElementById('imagemPreview');
-        imagemPreview.style.backgroundImage = `url(${imagemUrl})`;
-        imagemPreview.style.display = 'block';
+    // Elementos do modal
+    const modalAdicionar = document.getElementById('modalAdicionarPizza');
+    const btnAdicionar = document.getElementById('btnNovaPizza'); // Ou o seletor correto do seu botão
+    const formAdicionar = document.getElementById('formAdicionarPizza');
+
+    // Verificação de elementos
+    if (!modalAdicionar || !btnAdicionar) {
+        console.error('Elementos do modal de adição não encontrados!');
+        return;
     }
-    
-    // Atualize a função de submit para incluir os tamanhos
-    document.getElementById('formPizza').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const pizza = {
-            nome: document.getElementById('pizzaNome').value,
-            categoria: document.getElementById('pizzaCategoria').value,
-            ingredientes: document.getElementById('pizzaIngredientes').value,
-            tamanhos: {
-                pequena: parseFloat(document.getElementById('precoPequena').value),
-                media: parseFloat(document.getElementById('precoMedia').value),
-                grande: parseFloat(document.getElementById('precoGrande').value)
-            },
-            destaque: document.getElementById('pizzaDestaque').checked,
-            promocao: document.getElementById('pizzaPromocao').checked,
-            disponivel: document.getElementById('pizzaDisponivel').checked,
-            imagem: document.getElementById('pizzaImagemAtual').value
-        };
-        
-        console.log('Dados da pizza:', pizza);
-        alert(btnSalvarPizza.textContent === 'Salvar Pizza' ? 
-              'Pizza adicionada com sucesso!' : 'Pizza atualizada com sucesso!');
-        
-        modal.style.display = 'none';
-        limparFormulario();
+
+    // Abrir modal
+    btnAdicionar.addEventListener('click', function() {
+        abrirModalAdicionar();
     });
-    
-    // Evento para pré-visualização da imagem
-    document.getElementById('pizzaImagem').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const imagemPreview = document.getElementById('imagemPreview');
-                imagemPreview.style.backgroundImage = `url(${event.target.result})`;
-                imagemPreview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
+
+    // Fechar modal
+    modalAdicionar.querySelector('.fechar-modal').addEventListener('click', function() {
+        fecharModalAdicionar();
+    });
+
+    // Fechar ao clicar fora
+    modalAdicionar.addEventListener('click', function(e) {
+        if (e.target === modalAdicionar) {
+            fecharModalAdicionar();
         }
     });
+
+    // Pré-visualização da imagem
+    const inputImagem = document.getElementById('adicionarImagem');
+    const previewImagem = document.getElementById('adicionarImagemPreview');
+
+    if (inputImagem && previewImagem) {
+        inputImagem.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    previewImagem.style.backgroundImage = `url(${event.target.result})`;
+                    previewImagem.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    // Funções auxiliares
+    function abrirModalAdicionar() {
+        console.log('Abrindo modal de adição'); // Para debug
+        modalAdicionar.style.display = 'flex';
+        // Resetar formulário ao abrir
+        if (formAdicionar) formAdicionar.reset();
+        if (previewImagem) {
+            previewImagem.style.backgroundImage = '';
+            previewImagem.style.display = 'none';
+        }
+    }
+
+    function fecharModalAdicionar() {
+        modalAdicionar.style.display = 'none';
+    }
+});
+
+
+//EDITAR PIZZA
+document.addEventListener('DOMContentLoaded', function() {
+    // Modal de edição
+    const modalEditar = document.getElementById('modalEditarPizza');
+    const formEditar = document.getElementById('formEditarPizza');
     
-    // Evento de submit do formulário
-    document.getElementById('formPizza').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-       
-        
-        // Simulação de sucesso
-        alert(btnSalvarPizza.textContent === 'Salvar Pizza' ? 
-              'Pizza adicionada com sucesso!' : 'Pizza atualizada com sucesso!');
-        
-        modal.style.display = 'none';
-        limparFormulario();
-        
-        
+    // Botões de edição
+    document.querySelectorAll('.btn-editar').forEach(botao => {
+        botao.addEventListener('click', function() {
+            const pizzaCard = this.closest('.pizza-card');
+            if (!pizzaCard) return;
+
+            const pizzaId = pizzaCard.dataset.id;
+            if (!pizzaId) return;
+
+            // Atualiza o action do formulário com o ID correto
+            formEditar.action = `/admin/pizzas/${pizzaId}`;
+            
+            // Preenche os campos do formulário
+            document.getElementById('editarPizzaId').value = pizzaId;
+            document.getElementById('editarNome').value = pizzaCard.dataset.nome;
+            document.getElementById('editarCategoria').value = pizzaCard.dataset.categoria;
+            document.getElementById('editarIngredientes').value = pizzaCard.dataset.ingredientes;
+            document.getElementById('editarPrecoPequena').value = pizzaCard.dataset.pequena;
+            document.getElementById('editarPrecoMedia').value = pizzaCard.dataset.media;
+            document.getElementById('editarPrecoGrande').value = pizzaCard.dataset.grande;
+            
+            // Imagem
+            const imagemPreview = document.getElementById('editarImagemPreview');
+            if (imagemPreview) {
+                imagemPreview.style.backgroundImage = `url(${pizzaCard.dataset.imagem})`;
+                imagemPreview.style.display = 'block';
+                document.getElementById('editarImagemAtual').value = pizzaCard.dataset.imagem;
+            }
+            
+            // Remove o required da imagem para edição
+            document.getElementById('editarImagem').removeAttribute('required');
+            
+            // Abre o modal
+            modalEditar.style.display = 'flex';
+        });
+    });
+
+    // Fechar modal
+    document.querySelector('#modalEditarPizza .fechar-modal').addEventListener('click', function() {
+        modalEditar.style.display = 'none';
     });
 });

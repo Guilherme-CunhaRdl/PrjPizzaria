@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Pedidos | PizzaNight Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -128,120 +129,71 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Pedido 1 -->
-                        <tr>
-                            <td>#001</td>
-                            <td>
-                                <div class="cliente-info">
-                                    <img src="img/clientes/cliente1.jpg" alt="João Silva" class="cliente-avatar">
-                                    <div>
-                                        <div class="cliente-nome">João Silva</div>
-                                        <div class="cliente-telefone">(11) 98765-4321</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>10/06/2024<br>14:30</td>
-                            <td>
-                                <div class="lista-itens">
-                                    <div class="item-pedido">
-                                        <span class="item-quantidade">1x</span>
-                                        <span class="item-nome">Margherita</span>
-                                        <span class="item-tamanho">Média</span>
-                                        <span class="item-preco">R$ 49,90</span>
-                                    </div>
-                                    <div class="item-pedido">
-                                        <span class="item-quantidade">2x</span>
-                                        <span class="item-nome">Coca-Cola</span>
-                                        <span class="item-preco">R$ 9,90</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>R$ 77,70</td>
-                            <td>
-                                <div class="status-container">
-                                    <select class="status-select pendente">
-                                        <option value="pendente">Pendente</option>
-                                        <option value="preparo" selected>Em Preparo</option>
-                                        <option value="entrega">Em Entrega</option>
-                                        <option value="entregue">Entregue</option>
-                                        <option value="cancelado">Cancelado</option>
-                                    </select>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="acoes">
-                                    <button class="btn-acao btn-detalhes" title="Detalhes">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn-acao btn-imprimir" title="Imprimir">
-                                        <i class="fas fa-print"></i>
-                                    </button>
-                                    <button class="btn-acao btn-cancelar" title="Cancelar">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Pedido 2 -->
-                        <tr>
-                            <td>#002</td>
-                            <td>
-                                <div class="cliente-info">
-                                    <img src="img/clientes/cliente2.jpg" alt="Maria Souza" class="cliente-avatar">
-                                    <div>
-                                        <div class="cliente-nome">Maria Souza</div>
-                                        <div class="cliente-telefone">(11) 91234-5678</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>10/06/2024<br>15:45</td>
-                            <td>
-                                <div class="lista-itens">
-                                    <div class="item-pedido">
-                                        <span class="item-quantidade">1x</span>
-                                        <span class="item-nome">Calabresa</span>
-                                        <span class="item-preco">R$ 45,90</span>
-                                    </div>
-                                    <div class="item-pedido">
-                                        <span class="item-quantidade">1x</span>
-                                        <span class="item-nome">Guaraná</span>
-                                        <span class="item-preco">R$ 7,00</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>R$ 52,90</td>
-                            <td>
-                                <div class="status-container">
-                                    <select class="status-select pendente">
-                                        <option value="pendente">Pendente</option>
-                                        <option value="preparo" selected>Em Preparo</option>
-                                        <option value="entrega">Em Entrega</option>
-                                        <option value="entregue">Entregue</option>
-                                        <option value="cancelado">Cancelado</option>
-                                    </select>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="acoes">
-                                    <button class="btn-acao btn-detalhes" title="Detalhes">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn-acao btn-imprimir" title="Imprimir">
-                                        <i class="fas fa-print"></i>
-                                    </button>
-                                    <button class="btn-acao btn-cancelar" title="Cancelar">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                @foreach($pedidos as $pedido)
+                <tr>
+                    <td>#{{ str_pad($pedido->id, 3, '0', STR_PAD_LEFT) }}</td>
+                    <td>
+                        <div class="cliente-info">
+                            <img src="{{asset("uploads/".$pedido->usuario->imgUsuario) }}" 
+                                 alt="{{ $pedido->usuario->nomeUsuario }}" class="cliente-avatar">
+                            <div>
+                                <div class="cliente-nome">{{ $pedido->usuario->nomeUsuario }}</div>
+                                <div class="cliente-telefone">{{ $pedido->usuario->telefone ?? 'Não informado' }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        {{ $pedido->created_at->format('d/m/Y') }}<br>
+                        {{ $pedido->created_at->format('H:i') }}
+                    </td>
+                    <td>
+                        <div class="lista-itens">
+                            @foreach($pedido->itens as $item)
+                            <div class="item-pedido">
+                                <span class="item-quantidade">{{ $item->quantidade }}x</span>
+                                <span class="item-nome">{{ $item->pizza->nomePizza }}</span>
+                                @if($item->tamanho)
+                                <span class="item-tamanho">{{ ucfirst($item->tamanho) }}</span>
+                                @endif
+                                <span class="item-preco">R$ {{ number_format($item->preco_unitario, 2, ',', '.') }}</span>
+                            </div>
+                            @endforeach
+                        </div>
+                    </td>
+                    <td>R$ {{ number_format($pedido->total, 2, ',', '.') }}</td>
+                                    <td>
+                    <div class="status-container">
+                        <select class="status-select {{ $pedido->status }}" data-pedido-id="{{ $pedido->id }}">
+                            <option value="pendente" {{ $pedido->status == 'pendente' ? 'selected' : '' }}>Pendente</option>
+                            <option value="preparo" {{ $pedido->status == 'preparo' ? 'selected' : '' }}>Em Preparo</option>
+                            <option value="entrega" {{ $pedido->status == 'entrega' ? 'selected' : '' }}>Em Entrega</option>
+                            <option value="entregue" {{ $pedido->status == 'entregue' ? 'selected' : '' }}>Entregue</option>
+                            <option value="cancelado" {{ $pedido->status == 'cancelado' ? 'selected' : '' }}>Cancelado</option>
+                        </select>
+                    </div>
+                </td>
+                    <td>
+                        <div class="acoes">
+                            <button class="btn-acao btn-detalhes" title="Detalhes">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-acao btn-imprimir" title="Imprimir">
+                                <i class="fas fa-print"></i>
+                            </button>
+                            <button class="btn-acao btn-cancelar" title="Cancelar">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
                 </table>
             </div>
 
             <!-- Paginação -->
             <div class="paginacao">
+            {{ $pedidos->links() }}
                 <button class="btn-pagina" disabled>
                     <i class="fas fa-chevron-left"></i>
                 </button>
@@ -308,7 +260,7 @@
                             </tr>
                         </thead>
                         <tbody id="itensPedidoBody">
-                            <!-- Itens serão inseridos aqui pelo JavaScript -->
+                        
                         </tbody>
                     </table>
                 </div>
@@ -438,7 +390,7 @@
                 </div>
             </div>
         </div>
-
+</div>
 
 
         <script src="{{url('js/filtro.js')}}"></script>

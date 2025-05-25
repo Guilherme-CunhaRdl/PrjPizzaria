@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Pizza;
 
@@ -71,4 +71,32 @@ public function deletarPizza ($id) {
         return redirect()->back()->with('success', 'Pizza adicionada com sucesso!');
     }
     
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'nomePizza' => 'required|max:255',
+            'valorPequenaPizza' => 'required|numeric',
+            'valorMediaPizza' => 'required|numeric',
+            'valorGrandePizza' => 'required|numeric',
+            'ingredientesPizza' => 'required',
+            'categoriaPizza' => 'required',
+            'imgPizza' => 'sometimes|image'
+        ]);
+    
+        $pizza = Pizza::findOrFail($id);
+        
+        // Atualiza a imagem se foi enviada
+        if ($request->hasFile('imgPizza')) {
+            // Remove a imagem antiga
+            Storage::disk('public')->delete($pizza->imgPizza);
+            
+            // Armazena a nova imagem
+            $imagePath = $request->file('imgPizza')->store('images', 'public');
+            $validatedData['imgPizza'] = $imagePath;
+        }
+    
+        $pizza->update($validatedData);
+    
+        return redirect()->back()->with('success', 'Pizza atualizada com sucesso!');
+    }
 }

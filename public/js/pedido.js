@@ -72,52 +72,89 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Função para abrir o modal de detalhes com os tamanhos
-document.querySelectorAll('.btn-detalhes').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const pedidoRow = this.closest('tr');
-        const pedidoId = pedidoRow.querySelector('td:first-child').textContent;
-        const clienteInfo = pedidoRow.querySelector('.cliente-info');
-        
-        // Preencher informações básicas
-        document.getElementById('pedidoId').textContent = pedidoId;
-        document.getElementById('clienteNome').textContent = clienteInfo.querySelector('.cliente-nome').textContent;
-        document.getElementById('clienteTelefone').textContent = clienteInfo.querySelector('.cliente-telefone').textContent;
-        
-        // Preencher itens do pedido
-        const itensPedidoBody = document.getElementById('itensPedidoBody');
-        itensPedidoBody.innerHTML = '';
-        
-        // Obter itens do pedido (simulação - na prática você buscaria esses dados)
-        const itens = [
-            { nome: 'Pizza Margherita', tamanho: 'Média', quantidade: 1, preco: 49.90 },
-            { nome: 'Coca-Cola', quantidade: 2, preco: 9.90 }
-        ];
-        
-        let subtotal = 0;
-        
-        itens.forEach(item => {
-            const row = document.createElement('tr');
-            const totalItem = item.quantidade * item.preco;
-            subtotal += totalItem;
-            
-            row.innerHTML = `
-                <td>${item.nome}${item.tamanho ? ` (${item.tamanho})` : ''}</td>
-                <td>${item.quantidade}</td>
-                <td>R$ ${item.preco.toFixed(2).replace('.', ',')}</td>
-                <td>R$ ${totalItem.toFixed(2).replace('.', ',')}</td>
-            `;
-            
-            itensPedidoBody.appendChild(row);
+document.addEventListener('DOMContentLoaded', function() {
+    // Funções auxiliares
+    const formatarValor = (valor) => {
+        const numero = parseFloat(valor) || 0;
+        return numero.toLocaleString('pt-BR', { 
+            style: 'currency', 
+            currency: 'BRL' 
         });
-        
-        // Calcular totais
-        const taxaEntrega = 8.00;
-        document.getElementById('pedidoSubtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
-        document.getElementById('pedidoTaxa').textContent = `R$ ${taxaEntrega.toFixed(2).replace('.', ',')}`;
-        document.getElementById('pedidoTotal').textContent = `R$ ${(subtotal + taxaEntrega).toFixed(2).replace('.', ',')}`;
-        
-        // Mostrar modal
-        document.getElementById('modalPedido').style.display = 'flex';
+    };
+
+    const formatarPagamento = (metodo) => {
+        const metodos = {
+            'credito': 'Cartão (Crédito)',
+            'debito': 'Cartão (Débito)',
+            'pix': 'PIX',
+            'dinheiro': 'Dinheiro'
+        };
+        return metodos[metodo.toLowerCase()] || metodo;
+    };
+
+    // Eventos do modal
+    document.querySelectorAll('.btn-detalhes').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const linha = this.closest('tr');
+            const pedidoId = linha.querySelector('td:first-child').textContent.replace('#', '').trim();
+            
+            try {
+                const response = await fetch(`/pedidos/${pedidoId}/detalhes`);
+                if (!response.ok) throw new Error('Erro na API');
+                
+                const data = await response.json();
+
+                // Preenche dados superiores
+                document.getElementById('pedidoId').textContent = `#${pedidoId.padStart(3, '0')}`;
+                document.getElementById('clienteNome').textContent = data.cliente?.nome || 'Cliente não informado';
+                document.getElementById('clienteTelefone').textContent = data.cliente?.telefone || '--';
+                document.getElementById('clienteEndereco').textContent = data.endereco_entrega || 'Retirada no local';
+
+                // Data e hora formatadas
+                const dtPedido = new Date(data.created_at);
+                document.getElementById('pedidoData').textContent = dtPedido.toLocaleDateString('pt-BR');
+                document.getElementById('pedidoHora').textContent = dtPedido.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+                // Preenche itens
+                const tbody = document.getElementById('itensPedidoBody');
+                tbody.innerHTML = data.itens?.length ? '' : '<tr><td colspan="4">Nenhum item encontrado</td></tr>';
+                
+                data.itens?.forEach(item => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${item.nome || 'Item sem nome'} ${item.tamanho ? `(${item.tamanho})` : ''}</td>
+                            <td>${item.quantidade || 1}</td>
+                            <td>${formatarValor(item.preco_unitario)}</td>
+                            <td>${formatarValor((item.quantidade || 1) * (item.preco_unitario || 0))}</td>
+                        </tr>
+                    `;
+                });
+
+                // Resumo financeiro
+                document.getElementById('pedidoSubtotal').textContent = formatarValor(data.resumo?.subtotal);
+                document.getElementById('pedidoTaxa').textContent = formatarValor(data.resumo?.taxa_entrega);
+                document.getElementById('pedidoDesconto').textContent = formatarValor(data.resumo?.desconto || 0);
+                document.getElementById('pedidoTotal').textContent = formatarValor(data.resumo?.total);
+
+                // Observações
+                document.getElementById('pedidoObservacoes').textContent = data.observacoes || 'Sem observações';
+
+                // Abre o modal com flex
+                document.getElementById('modalPedido').style.display = 'flex'; // Alterado para flex
+
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Falha ao carregar pedido. Tente novamente.');
+            }
+        });
+    });
+
+    // Fechar modal
+    const fecharModal = () => document.getElementById('modalPedido').style.display = 'none';
+    document.querySelectorAll('.fechar-modal, .btn-fechar').forEach(el => {
+        el.addEventListener('click', fecharModal);
+    });
+    document.getElementById('modalPedido').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('modalPedido')) fecharModal();
     });
 });
