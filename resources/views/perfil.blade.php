@@ -20,9 +20,13 @@
             </div>
             <nav class="menu-desktop">
                 <ul>
+                <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
                     <li><a href="/menu"><i class="fas fa-utensils"></i> Cardápio</a></li>
+
+                    <li><a href="/historia"><i class="fa-solid fa-building"></i>Nossa historia</a></li>
                     <li><a href="/pedidos"><i class="fas fa-clipboard-list"></i> Meus Pedidos</a></li>
                     <li><a href="/perfil" class="active"><i class="fas fa-user"></i> Perfil</a></li>
+
                 </ul>
             </nav>
             <div class="btn-contato">
@@ -50,8 +54,10 @@
             <div class="perfil-info">
                 <div class="foto-perfil-container">
                     <div class="foto-perfil-wrapper">
-                        <img src="{{ auth()->user()->imgUsuario ? asset('uploads/'.auth()->user()->imgUsuario) : asset('images/default-user.png') }}" 
-                             alt="Foto de perfil" class="foto-perfil">
+                    <img src="{{ auth()->user()->imgUsuario ? asset('images/'.auth()->user()->imgUsuario) : asset('images/default-user.png') }}" 
+     alt="Foto de perfil" 
+     class="foto-perfil"
+     onerror="this.onerror=null;this.src='{{ asset('images/default-user.png') }}'">
                         <div class="foto-perfil-glow"></div>
                     </div>
                     <form id="form-foto" action="{{ route('perfil.atualizar-foto') }}" method="POST" enctype="multipart/form-data">

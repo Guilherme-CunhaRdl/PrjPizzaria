@@ -379,27 +379,6 @@ header {
 }
 
 /* Footer */
-.rodape {
-    background: linear-gradient(to top, var(--roxo-escuro), #2d0a4a);
-    padding: 20px 0;
-    text-align: center;
-    position: relative;
-}
-
-.rodape::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--roxo-claro), var(--amarelo), var(--roxo-claro), transparent);
-}
-
-.texto-rodape {
-    font-family: 'Courier New', monospace;
-    color: var(--cinza-claro);
-}
 
 /* Tema FNAF 3 */
 body.fnaf3-theme .perfil-container {

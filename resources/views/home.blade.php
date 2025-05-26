@@ -13,27 +13,26 @@
 <header>
         <div class="interface">
             <div class="logo">
-                <a href="#">
+                <a href="/">
                     <i class="fas fa-pizza-slice"></i>
                     <p>PizzaNight</p>
                 </a>
             </div>
-    
             <nav class="menu-desktop">
                 <ul>
-                    <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
-                    <li><a href="/menu"><i class="fas fa-utensils"></i>Cardápio</a></li>
+                <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
+                    <li><a href="/menu"><i class="fas fa-utensils"></i> Cardápio</a></li>
                     <li><a href="/historia"><i class="fa-solid fa-building"></i>Nossa historia</a></li>
+                    <li><a href="/perfil" class="active"><i class="fas fa-user"></i> Perfil</a></li>
                 </ul>
             </nav>
-    
-            <nav class="menu-desktop">  
-                <ul>
-                <li><a href="/perfil" class="active"><i class="fas fa-user"></i> Perfil</a></li>
-           </ul></nav>
-          
-          
-    
+            <div class="btn-contato">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                </form>
+            </div>
+        </div>
     </header>
 
 

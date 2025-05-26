@@ -52,3 +52,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+document.getElementById('form-foto').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            document.getElementById('foto-perfil').src = data.foto_url;
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        alert('Ocorreu um erro. Por favor, tente novamente.');
+    });
+});

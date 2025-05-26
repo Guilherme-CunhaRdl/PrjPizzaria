@@ -113,30 +113,43 @@ class UsuarioController extends Controller
         }
     }
 
-public function atualizarFoto(Request $request)
-{
-    $request->validate([
-        'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048'
-    ]);
-
-    if ($request->hasFile('foto')) {
-        $usuario = auth()->user();
-        
-        // Remove foto antiga se existir
-        if ($usuario->imgUsuario && Storage::exists('uploads/'.$usuario->imgUsuario)) {
-            Storage::delete('uploads/'.$usuario->imgUsuario);
+    public function atualizarFoto(Request $request)
+    {
+        $request->validate([
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+    
+        try {
+            if ($request->hasFile('foto')) {
+                $usuario = auth()->user();
+                
+                // Remove foto antiga se existir
+                if ($usuario->imgUsuario && file_exists(public_path('images/'.$usuario->imgUsuario))) {
+                    unlink(public_path('images/'.$usuario->imgUsuario));
+                }
+                
+                // Salva nova foto no public/images
+                $nomeArquivo = time().'.'.$request->foto->extension();
+                $request->foto->move(public_path('images'), $nomeArquivo);
+                
+                $usuario->imgUsuario = $nomeArquivo;
+                $usuario->save();
+    
+                return back()->with('success', 'Perfil atualizado com sucesso!');
+            }
+    
+            return response()->json([
+                'success' => false,
+                'message' => 'Nenhuma foto enviada.'
+            ], 400);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao atualizar foto: '.$e->getMessage()
+            ], 500);
         }
-        
-        // Salva nova foto
-        $nomeArquivo = time().'.'.$request->foto->extension();
-        $request->foto->storeAs('uploads', $nomeArquivo);
-        
-        $usuario->imgUsuario = $nomeArquivo;
-        $usuario->save();
     }
-
-    return back();
-}
 
 public function alterarSenha(Request $request)
 {
