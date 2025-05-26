@@ -126,3 +126,80 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('modalCliente');
+    const closeBtn = document.querySelector('.fechar-modal');
+    
+    // Abrir modal ao clicar em detalhes do cliente
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.btn-detalhes')) {
+            const clienteId = e.target.closest('.btn-detalhes').dataset.clienteId;
+            carregarDetalhesCliente(clienteId);
+            modal.style.display = 'block';
+        }
+    });
+
+    // Fechar modal
+    closeBtn.addEventListener('click', fecharModal);
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) fecharModal();
+    });
+
+    // Sistema de abas
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const tabId = this.dataset.tab;
+            
+            // Remove classe ativa de todos
+            document.querySelectorAll('.tab-btn, .tab-conteudo').forEach(el => {
+                el.classList.remove('ativo');
+            });
+            
+            // Adiciona classe ativa ao selecionado
+            this.classList.add('ativo');
+            document.getElementById(tabId).classList.add('ativo');
+        });
+    });
+
+    async function carregarDetalhesCliente(clienteId) {
+        try {
+            const response = await fetch(`/admin/clientes/${clienteId}/detalhes`);
+            if (!response.ok) throw new Error('Erro ao carregar dados');
+            
+            const data = await response.json();
+            
+            // Preencher dados do cliente
+            document.getElementById('clienteNome').textContent = data.nome;
+            document.getElementById('clienteEmail').textContent = data.email;
+            document.getElementById('clienteTelefone').textContent = data.telefone;
+            document.getElementById('clienteEndereco').textContent = data.endereco;
+            document.getElementById('clienteCadastro').textContent = `Cadastrado em: ${data.data_cadastro}`;
+            
+            // Preencher estatísticas
+            document.getElementById('totalPedidos').textContent = data.total_pedidos;
+            document.getElementById('valorTotal').textContent = `R$ ${data.valor_total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('ticketMedio').textContent = `R$ ${data.ticket_medio.toFixed(2).replace('.', ',')}`;
+            
+            // Preencher pedidos recentes
+            const listaPedidos = document.getElementById('listaPedidos');
+            listaPedidos.innerHTML = data.pedidos_recentes.map(pedido => `
+                <div class="pedido-item">
+                    <div class="pedido-id">#${pedido.id}</div>
+                    <div class="pedido-data">${pedido.data}</div>
+                    <div class="pedido-valor">R$ ${pedido.total.toFixed(2).replace('.', ',')}</div>
+                    <div class="pedido-status ${pedido.status.toLowerCase()}">${pedido.status}</div>
+                </div>
+            `).join('');
+            
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Erro ao carregar detalhes do cliente');
+        }
+    }
+
+    function fecharModal() {
+        modal.style.display = 'none';
+    }
+});

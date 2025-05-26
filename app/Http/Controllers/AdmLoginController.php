@@ -24,7 +24,7 @@ class AdmLoginController extends Controller
           
         $admin = Admin::where('emailAdmin', $request->email)->first();
         if ($admin && Hash::check($request->senha, $admin->senhaAdmin)) {
-            Auth::login($admin); 
+            Auth::guard('admin')->login($admin);
             return redirect()->route('dashboardAdm'); 
         }
 

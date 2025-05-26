@@ -47,142 +47,136 @@
 
 
         <section class="metrics">
-            <div class="metric-card primary">
-                <div class="icon">
-                    <i class="fas fa-pizza-slice"></i>
-                </div>
-                <div class="info">
-                    <h3>Pedidos Hoje</h3>
-                    <p>28</p>
-                    <span class="variacao positivo"><i class="fas fa-arrow-up"></i> 12%</span>
-                </div>
-            </div>
-            <div class="metric-card success">
-                <div class="icon">
-                    <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="info">
-                    <h3>Faturamento</h3>
-                    <p>R$ 3.450,00</p>
-                    <span class="variacao positivo"><i class="fas fa-arrow-up"></i> 8%</span>
-                </div>
-            </div>
-            <div class="metric-card warning">
-                <div class="icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="info">
-                    <h3>Novos Clientes</h3>
-                    <p>14</p>
-                    <span class="variacao negativo"><i class="fas fa-arrow-down"></i> 5%</span>
-                </div>
-            </div>
-            <div class="metric-card danger">
-                <div class="icon">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <div class="info">
-                    <h3>Pendentes</h3>
-                    <p>5</p>
-                    <span class="variacao">±0%</span>
-                </div>
-            </div>
-        </section>
+    <div class="metric-card primary">
+        <div class="icon">
+            <i class="fas fa-pizza-slice"></i>
+        </div>
+        <div class="info">
+            <h3>Pedidos Hoje</h3>
+            <p>{{ $metrics['pedidos_hoje'] }}</p>
+            <span class="variacao {{ $metrics['variacao_pedidos'] >= 0 ? 'positivo' : 'negativo' }}">
+                <i class="fas fa-arrow-{{ $metrics['variacao_pedidos'] >= 0 ? 'up' : 'down' }}"></i> 
+                {{ number_format(abs($metrics['variacao_pedidos']), 0) }}%
+            </span>
+        </div>
+    </div>
+    
+    <div class="metric-card success">
+        <div class="icon">
+            <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="info">
+            <h3>Faturamento</h3>
+            <p>R$ {{ number_format($metrics['faturamento_hoje'], 2, ',', '.') }}</p>
+            <span class="variacao {{ $metrics['variacao_faturamento'] >= 0 ? 'positivo' : 'negativo' }}">
+                <i class="fas fa-arrow-{{ $metrics['variacao_faturamento'] >= 0 ? 'up' : 'down' }}"></i> 
+                {{ number_format(abs($metrics['variacao_faturamento']), 0) }}%
+            </span>
+        </div>
+    </div>
+    
+    <div class="metric-card warning">
+        <div class="icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="info">
+            <h3>Novos Clientes</h3>
+            <p>{{ $metrics['novos_clientes'] }}</p>
+            <span class="variacao {{ $metrics['variacao_clientes'] >= 0 ? 'positivo' : 'negativo' }}">
+                <i class="fas fa-arrow-{{ $metrics['variacao_clientes'] >= 0 ? 'up' : 'down' }}"></i> 
+                {{ number_format(abs($metrics['variacao_clientes']), 0) }}%
+            </span>
+        </div>
+    </div>
+    
+    <div class="metric-card danger">
+        <div class="icon">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="info">
+            <h3>Pendentes</h3>
+            <p>{{ $metrics['pedidos_pendentes'] }}</p>
+            <span class="variacao">±0%</span>
+        </div>
+    </div>
+</section>
 
         <!-- Seção de Gráficos -->
         <section class="chart-section">
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h3>Vendas Mensais</h3>
-                    <div class="periodo-filtro">
-                        <button class="btn-periodo ativo">7 dias</button>
-                        <button class="btn-periodo">15 dias</button>
-                        <button class="btn-periodo">30 dias</button>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <div class="chart-placeholder">
-                        <!-- Espaço para o gráfico -->
-                        <img src="img/grafico-placeholder.png" alt="Gráfico de Vendas">
-                    </div>
+    <div class="chart-card">
+        <div class="chart-header">
+            <h3>Vendas Mensais</h3>
+            <div class="periodo-filtro">
+                <button class="btn-periodo ativo">7 dias</button>
+                <button class="btn-periodo">15 dias</button>
+                <button class="btn-periodo">30 dias</button>
+            </div>
+        </div>
+        <div class="chart-container">
+            <canvas id="vendasChart"></canvas>
+        </div>
+    </div>
+
+    <div class="chart-card small">
+        <div class="chart-header">
+            <h3>Top Sabores</h3>
+        </div>
+        <div class="top-sabores">
+            @foreach($topSabores as $sabor)
+            <div class="sabor-item">
+                <span class="nome">{{ $sabor->nomePizza }}</span>
+                <div class="barra-container">
+                    <div class="barra" style="width: {{ ($sabor->total_pedidos / $metrics['pedidos_hoje']) * 100 }}%"></div>
+                    <span>{{ round(($sabor->total_pedidos / $metrics['pedidos_hoje']) * 100) }}%</span>
                 </div>
             </div>
-
-            <div class="chart-card small">
-                <div class="chart-header">
-                    <h3>Top Sabores</h3>
-                </div>
-                <div class="top-sabores">
-                    <div class="sabor-item">
-                        <span class="nome">Margherita</span>
-                        <div class="barra-container">
-                            <div class="barra" style="width: 78%"></div>
-                            <span>78%</span>
-                        </div>
-                    </div>
-                    <div class="sabor-item">
-                        <span class="nome">Calabresa</span>
-                        <div class="barra-container">
-                            <div class="barra" style="width: 65%"></div>
-                            <span>65%</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
+            @endforeach
+        </div>
+    </div>
+</section>
 
         <!-- Tabela de Últimos Pedidos -->
         <section class="table-section">
-            <div class="table-header">
-                <h3>Últimos Pedidos</h3>
-                <a href="dbPedido.html" class="btn-ver-todos">Ver Todos <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Cliente</th>
-                            <th>Data</th>
-                            <th>Valor</th>
-                            <th>Status</th>
-                            <th>Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#001</td>
-                            <td>João Silva</td>
-                            <td>10/06 14:30</td>
-                            <td>R$ 45,90</td>
-                            <td><span class="status entregue">Entregue</span></td>
-                            <td>
-                                <button class="btn-acao btn-detalhes" title="Detalhes">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#002</td>
-                            <td>Maria Souza</td>
-                            <td>10/06 15:45</td>
-                            <td>R$ 32,50</td>
-                            <td><span class="status preparando">Preparando</span></td>
-                            <td>
-                                <button class="btn-acao btn-detalhes" title="Detalhes">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Mais pedidos... -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
+    <div class="table-header">
+        <h3>Últimos Pedidos</h3>
+        <a href="/admin/dbAdminPedido" class="btn-ver-todos">Ver Todos <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Data</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($ultimosPedidos as $pedido)
+                <tr>
+                    <td>#{{ str_pad($pedido->id, 3, '0', STR_PAD_LEFT) }}</td>
+                    <td>{{ $pedido->usuario->nomeUsuario }}</td>
+                    <td>{{ $pedido->created_at->format('d/m H:i') }}</td>
+                    <td>R$ {{ number_format($pedido->total, 2, ',', '.') }}</td>
+                    <td>
+                        <span class="status {{ strtolower($pedido->status) }}">{{ $pedido->status }}</span>
+                    </td>
+                    <td>
+                        <button class="btn-acao btn-detalhes" title="Detalhes" data-pedido-id="{{ $pedido->id }}">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</section>
 
 
-        <!-- Modal Detalhes do Pedido (mesmo da página de pedidos) -->
+   
         <div class="modal" id="modalPedido">
             <div class="modal-conteudo">
                 <span class="fechar-modal">&times;</span>

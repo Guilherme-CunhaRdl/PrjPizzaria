@@ -68,145 +68,117 @@
 
             <!-- Cards de Estatísticas -->
             <div class="estatisticas-clientes">
-                <div class="estatistica-card">
-                    <div class="estatistica-icon">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <div class="estatistica-info">
-                        <h3>Novos (7 dias)</h3>
-                        <p>12</p>
-                        <span class="variacao positivo"><i class="fas fa-arrow-up"></i> 8%</span>
-                    </div>
-                </div>
-                <div class="estatistica-card">
-                    <div class="estatistica-icon">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <div class="estatistica-info">
-                        <h3>Fidelidade</h3>
-                        <p>24</p>
-                        <span class="variacao positivo"><i class="fas fa-arrow-up"></i> 15%</span>
-                    </div>
-                </div>
-                <div class="estatistica-card">
-                    <div class="estatistica-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <div class="estatistica-info">
-                        <h3>Este Mês</h3>
-                        <p>28</p>
-                        <span class="variacao negativo"><i class="fas fa-arrow-down"></i> 5%</span>
-                    </div>
-                </div>
-            </div>
+    <div class="estatistica-card">
+        <div class="estatistica-icon">
+            <i class="fas fa-user-plus"></i>
+        </div>
+        <div class="estatistica-info">
+            <h3>Novos (7 dias)</h3>
+            <p>{{ $estatisticas['novos_clientes'] }}</p>
+
+            <span class="variacao {{ $estatisticas['variacao_clientes'] >= 0 ? 'positivo' : 'negativo' }}">
+                <i class="fas fa-arrow-{{ $estatisticas['variacao_clientes'] >= 0 ? 'up' : 'down' }}"></i> 
+                {{ number_format(abs($estatisticas['variacao_clientes']), 0) }}%
+            </span>
+        </div>
+    </div>
+    <div class="estatistica-card">
+        <div class="estatistica-icon">
+            <i class="fas fa-crown"></i>
+        </div>
+        <div class="estatistica-info">
+            <h3>Fidelidade</h3>
+            <p>{{ $estatisticas['clientes_fidelidade'] }}</p>
+            <span class="variacao positivo"><i class="fas fa-arrow-up"></i> 15%</span>
+        </div>
+    </div>
+    <div class="estatistica-card">
+        <div class="estatistica-icon">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="estatistica-info">
+            <h3>Este Mês</h3>
+            <p>{{ $estatisticas['clientes_mes'] }}</p>
+            <span class="variacao positivo"><i class="fas fa-arrow-up"></i> 10%</span>
+        </div>
+    </div>
+</div>
 
             <!-- Tabela de Clientes -->
             <div class="tabela-wrapper">
-                <table class="tabela-clientes">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Cliente</th>
-                            <th>Contato</th>
-                            <th>Pedidos</th>
-                            <th>Fidelidade</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Cliente 1 -->
-                        <tr>
-                            <td>#1001</td>
-                            <td>
-                                <div class="cliente-info">
-                                    <img src="img/clientes/cliente1.jpg" alt="João Silva" class="cliente-avatar">
-                                    <div class="cliente-detalhes">
-                                        <div class="cliente-nome">João Silva</div>
-                                        <div class="cliente-email">joao.silva@email.com</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="contato-info">
-                                    <div class="contato-telefone"><i class="fas fa-phone"></i> (11) 98765-4321</div>
-                                    <div class="contato-endereco"><i class="fas fa-map-marker-alt"></i> São Paulo/SP</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="pedidos-info">
-                                    <div class="pedidos-total">15 pedidos</div>
-                                    <div class="pedidos-valor">R$ 1.245,80</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="fidelidade-badge gold">
-                                    <i class="fas fa-crown"></i> Gold
-                                </div>
-                            </td>
-                            <td>
-                                <div class="status-badge ativo">Ativo</div>
-                            </td>
-                            <td>
-                                <div class="acoes">
-                                    <button class="btn-acao btn-detalhes" title="Detalhes">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn-acao btn-mensagem" title="Enviar Mensagem">
-                                        <i class="fas fa-envelope"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Cliente 2 -->
-                        <tr>
-                            <td>#1002</td>
-                            <td>
-                                <div class="cliente-info">
-                                    <img src="img/clientes/cliente2.jpg" alt="Maria Souza" class="cliente-avatar">
-                                    <div class="cliente-detalhes">
-                                        <div class="cliente-nome">Maria Souza</div>
-                                        <div class="cliente-email">maria.souza@email.com</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="contato-info">
-                                    <div class="contato-telefone"><i class="fas fa-phone"></i> (11) 91234-5678</div>
-                                    <div class="contato-endereco"><i class="fas fa-map-marker-alt"></i> São Paulo/SP</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="pedidos-info">
-                                    <div class="pedidos-total">8 pedidos</div>
-                                    <div class="pedidos-valor">R$ 623,50</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="fidelidade-badge silver">
-                                    <i class="fas fa-award"></i> Silver
-                                </div>
-                            </td>
-                            <td>
-                                <div class="status-badge ativo">Ativo</div>
-                            </td>
-                            <td>
-                                <div class="acoes">
-                                    <button class="btn-acao btn-detalhes" title="Detalhes">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-
-                                    </button>
-                                    <button class="btn-acao btn-mensagem" title="Enviar Mensagem">
-                                        <i class="fas fa-envelope"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="tabela-clientes">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Contato</th>
+            <th>Pedidos</th>
+            <th>Fidelidade</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($clientes as $cliente)
+        <tr>
+            <td>#{{ $cliente->id }}</td>
+            <td>
+                <div class="cliente-info">
+                    <img src="{{ $cliente->imgUsuario ? asset('uploads/'.$cliente->imgUsuario) : asset('images/default-user.png') }}" 
+                         alt="{{ $cliente->nomeUsuario }}" class="cliente-avatar">
+                    <div class="cliente-detalhes">
+                        <div class="cliente-nome">{{ $cliente->nomeUsuario }}</div>
+                        <div class="cliente-email">{{ $cliente->emailUsuario }}</div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="contato-info">
+                    @if($cliente->cpfUsuario)
+                    <div class="contato-telefone">
+                        <i class="fas fa-id-card"></i> {{ $cliente->cpfUsuario }}
+                    </div>
+                    @endif
+                    <div class="contato-endereco">
+                        <i class="fas fa-map-marker-alt"></i> 
+                        {{ $cliente->cidadeUsuario }}/{{ $cliente->estadoUsuario }}
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="pedidos-info">
+                    <div class="pedidos-total">{{ $cliente->total_pedidos }} pedidos</div>
+                    <div class="pedidos-valor">R$ {{ number_format($cliente->valor_total, 2, ',', '.') }}</div>
+                </div>
+            </td>
+            <td>
+                @php
+                    $nivel = $cliente->valor_total > 500 ? 'gold' : 
+                            ($cliente->valor_total > 200 ? 'silver' : 'basic');
+                @endphp
+                <div class="fidelidade-badge {{ $nivel }}">
+                    <i class="fas fa-{{ $nivel == 'gold' ? 'crown' : 'award' }}"></i>
+                    {{ ucfirst($nivel) }}
+                </div>
+            </td>
+            <td>
+                <div class="status-badge ativo">Ativo</div>
+            </td>
+            <td>
+                <div class="acoes">
+                    <button class="btn-acao btn-detalhes" data-cliente-id="{{ $cliente->id }}">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-acao btn-mensagem">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+</div>
 
             <!-- Paginação -->
             <div class="paginacao">
