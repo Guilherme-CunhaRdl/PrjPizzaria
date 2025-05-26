@@ -742,3 +742,14 @@ body::before {
         font-size: 20px;
     }
 }
+
+.pedido-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--roxo-escuro);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(216, 29, 241, 0.3);
+    margin-top: 10px;
+}

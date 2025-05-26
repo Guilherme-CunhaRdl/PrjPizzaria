@@ -20,7 +20,7 @@
             </div>
             <nav class="menu-desktop">
                 <ul>
-                    <li><a href="/cardapio"><i class="fas fa-utensils"></i> Cardápio</a></li>
+                    <li><a href="/menu"><i class="fas fa-utensils"></i> Cardápio</a></li>
                     <li><a href="/pedidos"><i class="fas fa-clipboard-list"></i> Meus Pedidos</a></li>
                     <li><a href="/perfil" class="active"><i class="fas fa-user"></i> Perfil</a></li>
                 </ul>

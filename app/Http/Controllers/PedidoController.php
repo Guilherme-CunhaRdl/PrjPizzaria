@@ -42,6 +42,26 @@ class PedidoController extends Controller
         ]);
     }
 
+    public function meusPedidos()
+    {
+        $pedidos = Pedido::with(['itens.pizza'])
+            ->where('idUsuario', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('nivelUsuario.meusPedidos', compact('pedidos'));
+    }
+
+    public function itensPedido($id)
+    {
+        $pedido = Pedido::with(['itens.pizza'])
+            ->where('id', $id)
+            ->where('idUsuario', Auth::id())
+            ->firstOrFail();
+
+        return view('nivelUsuario.itensPedido', compact('pedido'));
+    }
+
     public function contagemStatus()
 {
     return response()->json([

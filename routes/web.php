@@ -31,6 +31,8 @@ Route::get('/menu/pedido','App\Http\Controllers\MenuController@PagPedido');
 Route::get('/historia','App\Http\Controllers\MenuController@PagHistoria');
 
 Route::middleware(['auth:web', 'usuario'])->group(function () {
+    Route::get('/pedidos', [PedidoController::class, 'meusPedidos'])->name('pedidos.meusPedidos');
+    Route::get('/itensPedido', [PedidoController::class, 'itensPedido'])->name('pedidos.itensPedido');
     Route::get('/pedidos/{id}/detalhes', [PedidoController::class, 'detalhes'])->name('pedidos.detalhes');
     Route::get('/pedidos/contagem-status', [PedidoController::class, 'contagemStatus']);
     Route::get('/menu/pedido/{id}', [PedidoController::class, 'pegarPizzas'])->name('pedido.create');
