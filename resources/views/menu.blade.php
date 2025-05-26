@@ -11,30 +11,30 @@
 </head>
 <body>
     
-    <header>
+<header>
         <div class="interface">
             <div class="logo">
-                <a href="/">
+                <a href="#">
                     <i class="fas fa-pizza-slice"></i>
                     <p>PizzaNight</p>
                 </a>
-            </div><!--Logo-->
-
+            </div>
+    
             <nav class="menu-desktop">
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/menu">Cardápio</a></li>
-                    <li><a href="#">Dúvidas Frequentes</a></li>
-                    <li><a href="#">Sobre nós</a></li>
+                    <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
+                    <li><a href="/menu"><i class="fas fa-utensils"></i>Cardápio</a></li>
+                    <li><a href="/historia"><i class="fa-solid fa-building"></i>Nossa historia</a></li>
                 </ul>
             </nav>
-
-            <div class="btn-contato">
-                <a href="/login">
-                    <button>Login</button>
-                </a>
-            </div><!--Btn-Contato-->
-        </div><!--Interface-->
+    
+            <nav class="menu-desktop">  
+                <ul>
+                <li><a href="/perfil" class="active"><i class="fas fa-user"></i> Perfil</a></li>
+           </ul></nav>
+          
+          
+    
     </header>
 
     <div class="bannerInicio">

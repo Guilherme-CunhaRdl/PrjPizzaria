@@ -24,10 +24,19 @@ class LoginController extends Controller
       $usuario = Usuario::where('emailUsuario', $request->email)->first();
 
       if ($usuario && Hash::check($request->senha, $usuario->senhaUsuario)) {
-        Auth::login($usuario); 
+        Auth::guard('web')->login($usuario);
         return redirect()->route('home'); 
     }
 
     return back()->withErrors(['email' => 'Email ou senha inválidos']);
     }
+
+    public function logout(Request $request)
+{
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect()->route('login');
+}
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{url('css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
     <title>Home</title>
 </head>
 <body>
@@ -20,19 +21,19 @@
     
             <nav class="menu-desktop">
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/menu">Cardápio</a></li>
-                    <li><a href='/admin/loginAdmin'>Admin</a></li>
-                    <li><a href="/historia">Sobre Nós</a></li>
+                    <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
+                    <li><a href="/menu"><i class="fas fa-utensils"></i>Cardápio</a></li>
+                    <li><a href="/historia"><i class="fa-solid fa-building"></i>Nossa historia</a></li>
                 </ul>
             </nav>
     
-            <div class="btn-contato">
-                <a href="/login">
-                    <button>Login</button>
-                </a>
-            </div>
-        </div>
+            <nav class="menu-desktop">  
+                <ul>
+                <li><a href="/perfil" class="active"><i class="fas fa-user"></i> Perfil</a></li>
+           </ul></nav>
+          
+          
+    
     </header>
 
 

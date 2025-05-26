@@ -22,24 +22,32 @@ use App\Http\Controllers\PedidoController;
 */
 
 Route::get('/','App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::get('/nivelUsuario/cadastro', [CadastroController::class, 'index']);
+Route::post('/nivelUsuario/cadastro', [CadastroController::class, 'FazerCadastro']);
 Route::get('/menu',[ProdutoController::class, 'verTodasPizzas']);
 Route::get('/menu/pedido','App\Http\Controllers\MenuController@PagPedido');
 Route::get('/historia','App\Http\Controllers\MenuController@PagHistoria');
-Route::post('/nivelUsuario/cadastro', [CadastroController::class, 'FazerCadastro']);
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+
+Route::middleware(['auth:web', 'usuario'])->group(function () {
+    Route::get('/pedidos/{id}/detalhes', [PedidoController::class, 'detalhes'])->name('pedidos.detalhes');
+    Route::get('/pedidos/contagem-status', [PedidoController::class, 'contagemStatus']);
+    Route::get('/menu/pedido/{id}', [PedidoController::class, 'pegarPizzas'])->name('pedido.create');
+    Route::post('/menu/pedido/sucesso', [PedidoController::class, 'store'])->name('pedidos.store');
+    Route::get('/perfil', [UsuarioController::class, 'perfil'])->name('usuario.perfil');
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::put('/perfil', [UsuarioController::class, 'atualizarPerfil'])->name('perfil.atualizar');
+    Route::post('/perfil/foto', [UsuarioController::class, 'atualizarFoto'])->name('perfil.atualizar-foto');
+    Route::post('/perfil/senha', [UsuarioController::class, 'alterarSenha'])->name('perfil.alterar-senha');
+    
+});
+
 
 Route::get('/admin/loginAdmin', [AdmLoginController::class, 'index'])->name('loginAdmin');
 Route::post('/admin/loginAdmin', [AdmLoginController::class, 'login'])->name('loginAdmin.submit');
-
-Route::get('/pedidos/{id}/detalhes', [PedidoController::class, 'detalhes'])->name('pedidos.detalhes');
-Route::get('/pedidos/contagem-status', [PedidoController::class, 'contagemStatus']);
-Route::get('/menu/pedido/{id}', [PedidoController::class, 'pegarPizzas'])->name('pedido.create');
-Route::post('/menu/pedido/sucesso', [PedidoController::class, 'store'])->name('pedidos.store');
-
 //BAgulho do ADM
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth:admin', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dbAdmin', [AdminController::class, 'dbAdmin'])->name('dashboardAdm');
     Route::get('/dbAdminCardapio', [ProdutoController::class, 'index'])->name('cardapio.index');
     Route::get('/dbAdminPedido', [PedidoController::class, 'index'])->name('admin.pedidos');
