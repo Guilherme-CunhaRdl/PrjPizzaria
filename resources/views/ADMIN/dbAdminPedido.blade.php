@@ -82,7 +82,7 @@
                     </div>
                     <div class="resumo-info">
                         <h3>Pendentes</h3>
-                        <p>8</p>
+                        <p>{{ $contagemStatus['pendente'] }}</p>
                     </div>
                 </div>
                 <div class="resumo-card">
@@ -91,7 +91,7 @@
                     </div>
                     <div class="resumo-info">
                         <h3>Em Preparo</h3>
-                        <p>5</p>
+                        <p>{{ $contagemStatus['preparo'] }}</p>
                     </div>
                 </div>
                 <div class="resumo-card">
@@ -100,7 +100,7 @@
                     </div>
                     <div class="resumo-info">
                         <h3>Em Entrega</h3>
-                        <p>3</p>
+                        <p>{{ $contagemStatus['entrega'] }}</p>
                     </div>
                 </div>
                 <div class="resumo-card">
@@ -109,7 +109,7 @@
                     </div>
                     <div class="resumo-info">
                         <h3>Entregues</h3>
-                        <p>15</p>
+                        <p>{{ $contagemStatus['entregue'] }}</p>
                     </div>
                 </div>
             </div>

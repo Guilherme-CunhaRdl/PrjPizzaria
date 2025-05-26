@@ -80,7 +80,7 @@
                 <div class="baixoCard">
                     <h1>{{$pizza->nomePizza}}</h1>
                     <p class="ingredientes">{{$pizza->ingredientesPizza}}</p>
-                    <a href='{{route('infoPizza', ['id' =>$pizza->id])}}' class="btn-pedir">Pedir Agora</a>
+                    <a href='{{route('pedido.create', ['id' =>$pizza->id])}}' class="btn-pedir">Pedir Agora</a>
                 </div> 
             </div>
             

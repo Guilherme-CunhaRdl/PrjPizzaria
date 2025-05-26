@@ -80,7 +80,7 @@
      data-grande="{{ $pizza->valorGrandePizza }}"
      data-imagem="{{ asset('uploads/' . $pizza->imgPizza) }}">
             <div class="pizza-img" style="background-image: url('{{ asset("uploads/" . $pizza->imgPizza) }}');">
-            <span class="badge-esgotado"><i class="fas fa-times-circle"></i> Esgotado</span>
+
                 </div>
                 <div class="pizza-info">
                     <div class="pizza-header">

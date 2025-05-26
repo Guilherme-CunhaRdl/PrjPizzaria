@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Pedido;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CadastroController;
@@ -27,7 +28,7 @@ Route::get('/historia','App\Http\Controllers\MenuController@PagHistoria');
 Route::post('/nivelUsuario/cadastro', [CadastroController::class, 'FazerCadastro']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
-Route::get('/menu/pedido/{id}', [ProdutoController::class, 'verPizzaEspecifica'])->name('infoPizza');
+
 
 
 //BAgulho do ADM
@@ -46,3 +47,6 @@ Route::put('/admin/pizzas/{id}', [ProdutoController::class, 'update'])->name('pi
 // ROTAS DO PEDIDO 
 Route::put('/admin/pedidos/{pedido}/status', [PedidoController::class, 'updateStatus'])->name('pedidos.updateStatus');
 Route::get('/pedidos/{id}/detalhes', [PedidoController::class, 'detalhes'])->name('pedidos.detalhes');
+Route::get('/pedidos/contagem-status', [PedidoController::class, 'contagemStatus']);
+Route::get('/menu/pedido/{id}', [PedidoController::class, 'pegarPizzas'])->name('pedido.create');
+Route::post('/menu/pedido/sucesso', [PedidoController::class, 'store'])->name('pedidos.store');

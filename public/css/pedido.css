@@ -482,3 +482,143 @@ header {
         bottom: 20px;
     }
 }
+
+.pizzas-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    max-height: 65vh;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-top: 20px;
+}
+
+.pizza-card {
+    background: rgba(69, 21, 107, 0.3);
+    border: 1px solid var(--roxo-claro);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s;
+    display: flex;
+}
+
+.pizza-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(216, 29, 241, 0.2);
+}
+
+.pizza-image-container {
+    width: 150px;
+    flex-shrink: 0;
+}
+
+.pizza-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pizza-info {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ajustando os botões de tamanho para manter seu estilo */
+.pizza-opcoes .btn-tamanho {
+    padding: 6px 12px;
+    margin: 0 5px 5px 0;
+    font-size: 0.85rem;
+}
+
+/* Controle de quantidade - estilo harmônico */
+.quantidade-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    background: rgba(216, 29, 241, 0.1);
+    border-radius: 50px;
+    padding: 5px;
+    width: fit-content;
+}
+
+.btn-quantidade {
+    width: 30px;
+    height: 30px;
+    background: var(--roxo-claro);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-quantidade {
+    width: 40px;
+    text-align: center;
+    background: transparent;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* Botão adicionar - estilo consistente */
+.btn-adicionar {
+    background: var(--amarelo);
+    color: var(--roxo-escuro);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.btn-adicionar:hover {
+    background: var(--roxo-claro);
+    color: white;
+}
+
+/* Estilo do carrinho */
+.itens-carrinho {
+    border-top: 1px dashed rgba(216, 29, 241, 0.3);
+    border-bottom: 1px dashed rgba(216, 29, 241, 0.3);
+    padding: 15px 0;
+    margin: 15px 0;
+}
+
+.item-carrinho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(216, 29, 241, 0.1);
+}
+
+/* ===== AJUSTES PARA O TEMA FNAF ===== */
+body.fnaf3-theme .pizza-card {
+    background: rgba(74, 114, 74, 0.2);
+    border-color: #4a724a;
+}
+
+body.fnaf3-theme .btn-adicionar {
+    background: #8a7d3b;
+    color: #0c0c0c;
+}
+
+body.fnaf3-theme .btn-adicionar:hover {
+    background: #6b3434;
+}
+
+body.fnaf3-theme .quantidade-container {
+    background: rgba(74, 114, 74, 0.2);
+}
+
+body.fnaf3-theme .btn-quantidade {
+    background: #6b3434;
+}
